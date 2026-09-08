@@ -1,0 +1,46 @@
+# Roda os três verificadores em cada PR, no Firefox.
+#
+# ⭐⭐ Por que isto existe: o README manda rodar `npm run verificar` antes de
+# entregar, e hoje isso é confiança. Quem revisa o PR não tem como saber se
+# rodou, em qual navegador, nem se a reprova conhecida que entrou junto era
+# mesmo a única. Aqui a resposta fica na página do PR, com número.
+#
+# ⚠️ Firefox, e não Chromium — a mesma razão do README: o Chromium empacotado
+# não decodifica AAC, e uma tela com mensagem de voz mostra erro de reprodução
+# que é do navegador de teste e não do produto. Medir no navegador errado é
+# como medir a cor contra o fundo errado.
+#
+# ⚠️ E Linux, não Windows. O build do Firefox do Playwright não sobe em toda
+# máquina Windows: o manifesto dele declara `mozglue` como assembly lado a lado
+# e existe ambiente em que o Windows não resolve isso, com «spawn UNKNOWN» e
+# nada de útil no erro. No runner do Ubuntu esse problema não existe, então quem
+# desenha no Windows não fica sem medição.
+name: verificar
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # ⚠️ `npm i` e não `npm ci`: não há lockfile no repositório, e `npm ci`
+      # recusa rodar sem ele. Se um dia entrar um `package-lock.json`, troque.
+      - run: npm i
+
+      # ⚠️ `--with-deps` instala as bibliotecas de sistema que o Firefox precisa
+      # no runner. Sem elas o navegador baixa e não sobe, com erro que parece
+      # do código.
+      - run: npx playwright install --with-deps firefox
+
+      # ⛔ Os três, e em sequência: o `npm run verificar` encadeia com `&&`, e o
+      # primeiro que reprovar sai com 1 e derruba o job — que é o
+      # comportamento certo. «Não medida» nunca conta como aprovada.
+      - run: npm run verificar

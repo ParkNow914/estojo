@@ -3,3 +3,9 @@ package-lock.json
 # ⛔ nada de captura do produto aqui: as telas deste repositório são
 # REPRODUÇÕES estáticas, e print do produto com dado real não entra.
 *.png
+
+# ⛔ `casca/` é GERADA de `conteudo/` (`npm run casca`). Versionar saída de
+# build é ter duas fontes para a mesma coisa, e a segunda envelhece calada — e
+# no GitHub um .html aparece como código-fonte, então versionar não ajuda nem
+# quem só navega.
+casca/

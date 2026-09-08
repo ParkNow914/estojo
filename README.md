@@ -14,9 +14,15 @@ falta um caso aqui, não um acesso.
 
 ## Comece por aqui
 
-Abra [`casca/index.html`](casca/index.html) no navegador. São cinco superfícies do
-produto em **HTML sem uma linha de CSS**: o que cada uma precisa mostrar, quem a
-abre, o que varia, e os casos.
+    npm i && npm run casca
+
+Isso escreve `casca/` — cinco superfícies do produto em **HTML sem uma linha de
+CSS**: o que cada uma precisa mostrar, quem a abre, o que varia, e os casos. Abra
+`casca/index.html` no navegador.
+
+⚠️ Ela é **gerada** de [`conteudo/`](conteudo/) e não vem versionada: saída de
+build no repositório é uma segunda fonte da mesma coisa, e a segunda envelhece
+calada. Se preferir ler o modelo direto, os JSON têm o mesmo texto.
 
 O feio é intencional e é o recado. Se o documento pelado não faz sentido, nenhum
 CSS conserta — a hierarquia se prova antes da primeira cor.

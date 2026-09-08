@@ -238,6 +238,18 @@ focabilidade depende de o container **de fato** transbordar, então o segundo
 carrossel da mesma página não é parada de Tab em 390px e é em telas largas —
 medir numa largura só não cobre.
 
+**7 · ⭐⭐ O anel de foco herda uma cor escolhida para outro papel.** Este é
+«esta cor é FILL ou é TEXTO?» um nível mais fundo, e só apareceu no Firefox. O
+Firefox tira a cor do anel de foco do `color` do elemento. O `.tocar` e o `.mic`
+da conversa são círculos preenchidos com `--accent`, e o `color` deles é `--bg`
+porque o texto fica **dentro** do preenchimento. Só que o anel é pintado **fora**
+dele: anel escuro sobre fundo escuro, **1,45:1** sobre a bolha e **1,07:1** sobre
+o painel, contra piso de 3,0. ⛔ O conserto não é nesses dois botões: é que **não
+existe token de anel de foco**, então ele herda o que encontrar. ⚠️ E é a razão
+de o CI rodar Firefox e não Chromium — no Chromium os dois passam com 7,75:1,
+porque lá o anel tem cor própria. Medir no navegador errado aqui daria ✅ em cima
+de um anel invisível.
+
 ## O que o produto tem que restringe o desenho
 
 **1 · Parte das telas é DECLARATIVA.** Serviços integrados descrevem a superfície

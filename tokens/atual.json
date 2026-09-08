@@ -1,0 +1,149 @@
+{
+  "app": {
+    "de": "web/src/styles.css",
+    "serve": "o aplicativo web e o Flutter (o «Cream»)",
+    "temas": {
+      "escuro": {
+        "--r-controle": "999px",
+        "--r-casco": "24px",
+        "--r-menu": "16px",
+        "--r-area": "16px",
+        "--r-pequeno": "4px",
+        "--r-redondo": "999px",
+        "--fonte": "\"Montserrat\", ui-sans-serif, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+        "--t-display": "28px",
+        "--t-titulo": "20px",
+        "--t-secao": "18px",
+        "--t-corpo": "15px",
+        "--t-medio": "16px",
+        "--t-base": "14px",
+        "--t-apoio": "13px",
+        "--t-mini": "12px",
+        "--t-micro": "11px",
+        "--e1": "4px",
+        "--e2": "8px",
+        "--e3": "12px",
+        "--e4": "16px",
+        "--e5": "20px",
+        "--e6": "24px",
+        "--e8": "32px",
+        "--e10": "40px",
+        "--e16": "64px",
+        "--leitura": "46rem",
+        "--bg": "#131211",
+        "--panel": "#1B1918",
+        "--panel-2": "#242120",
+        "--line": "#322E2B",
+        "--line-controle": "#8E867B",
+        "--line-forte": "#443F3B",
+        "--text": "#EDEAE5",
+        "--muted": "#A49C93",
+        "--fraco": "#8F877F",
+        "--accent": "#6EA8FE",
+        "--accent-forte": "#8FBEFF",
+        "--accent-fraco": "#23324A",
+        "--sobre-accent": "#131211",
+        "--fagulha": "#F0A85C",
+        "--fagulha-fraca": "#3A2A18",
+        "--socio": "#FFD9A8",
+        "--ok": "#5FCB8B",
+        "--danger": "#FF7A7A",
+        "--warn-bg": "#3A2A18",
+        "--warn-line": "#6B4A22",
+        "--warn-text": "#F5CE9B",
+        "--out-bg": "#23324A",
+        "--out-line": "#2E4260",
+        "--in-bg": "#242120",
+        "--in-line": "#322E2B",
+        "--sombra": "none",
+        "--sombra-flutuante": "0 8px 24px -8px rgba(0,0,0,.55), 0 2px 6px rgba(0,0,0,.35)",
+        "--chip-na-bolha": "color-mix(in srgb, currentColor 8%, transparent)",
+        "--ok-texto": "#5FCB8B",
+        "--fagulha-texto": "#F0A85C"
+      },
+      "claro": {
+        "--bg": "#F6F2EE",
+        "--panel": "#F9F9F9",
+        "--panel-2": "#E5DED5",
+        "--line": "#c7c7c7",
+        "--line-controle": "#847C72",
+        "--line-forte": "#A69E94",
+        "--text": "#1C1B18",
+        "--muted": "#635B52",
+        "--fraco": "#6B6359",
+        "--accent": "#1B58BF",
+        "--accent-forte": "#17509F",
+        "--ok-texto": "#136E64",
+        "--fagulha-texto": "#8F540E",
+        "--accent-fraco": "#EAF4FE",
+        "--sobre-accent": "#FFFFFF",
+        "--fagulha": "#B96C12",
+        "--fagulha-fraca": "#FDF2E3",
+        "--socio": "#8A4E0C",
+        "--ok": "#1B998B",
+        "--danger": "#AE3427",
+        "--warn-bg": "#FDF2E3",
+        "--warn-line": "#E7CBA1",
+        "--warn-text": "#7A4E12",
+        "--out-bg": "#EAF4FE",
+        "--out-line": "#9BD0FF",
+        "--in-bg": "#FFFFFF",
+        "--in-line": "#c7c7c7",
+        "--sombra": "none",
+        "--sombra-flutuante": "0 8px 24px -10px rgba(28,27,24,.22), 0 2px 6px rgba(28,27,24,.10)"
+      }
+    }
+  },
+  "paginas": {
+    "de": "api/src/okmigo/routers/estilo_vitrine.py",
+    "serve": "as 8 páginas públicas de apresentação",
+    "temas": {
+      "escuro": {
+        "--azul": "#6EA8FE",
+        "--primario": "#0C5CAB",
+        "--primario-2": "#0a4a8a",
+        "--fundo": "#09090b",
+        "--painel": "rgba(255,255,255,.035)",
+        "--linha": "rgba(255,255,255,.09)",
+        "--linha-2": "rgba(255,255,255,.17)",
+        "--texto": "#fafafa",
+        "--apoio": "#b4b8c0",
+        "--fraco": "#8e93a0",
+        "--raio": ".9rem",
+        "--sombra": "0 16px 48px rgba(0,0,0,.5)"
+      }
+    }
+  },
+  "documento": {
+    "de": "api/src/okmigo/routers/sobre.py",
+    "serve": "as páginas-documento (/sobre, /integracao)",
+    "temas": {
+      "escuro": {
+        "--azul": "#6EA8FE",
+        "--primario": "#0C5CAB",
+        "--primario-2": "#0a4a8a",
+        "--fundo": "#09090b",
+        "--painel": "rgba(255,255,255,.035)",
+        "--linha": "rgba(255,255,255,.09)",
+        "--linha-2": "rgba(255,255,255,.17)",
+        "--texto": "#fafafa",
+        "--apoio": "#b4b8c0",
+        "--fraco": "#8e93a0"
+      }
+    }
+  },
+  "negocio": {
+    "de": "api/src/okmigo/pagina_html.py",
+    "serve": "a página pública de cada negócio",
+    "temas": {
+      "escuro": {
+        "--largura": "76rem",
+        "--leitura": "38rem",
+        "--vao-junto": "14px",
+        "--vao-bloco": "28px",
+        "--vao-secao": "56px",
+        "--mono": "ui-monospace,SFMono-Regular,\\\"SF Mono\\\",Menlo,Consolas,\"\n            f\"\\\"Liberation Mono\\\",monospace"
+      }
+    }
+  }
+}

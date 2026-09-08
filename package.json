@@ -1,0 +1,10 @@
+{
+  "name": "estojo",
+  "private": true,
+  "type": "module",
+  "description": "O estojo de desenho do okmigo — tokens, telas e o verificador.",
+  "scripts": {
+    "verificar": "node verificar/contraste.mjs telas/*.html",
+    "tokens": "node ferramentas/tokens.mjs"
+  }
+}

@@ -10,6 +10,7 @@ diga — provavelmente falta uma tela aqui, não um acesso.
 
 ## Comece por aqui
 
+    npm i
     node verificar/contraste.mjs telas/*.html
 
 Ele mede **no pixel renderizado** e sai com código 1 se algo reprovar. Rode antes
@@ -24,7 +25,8 @@ papel e errada no outro**, porque os pisos são diferentes:
 
 | papel | piso | regra |
 |---|---|---|
-| texto, e ícone que carrega informação | **4,5:1** | WCAG 1.4.3 |
+| texto | **4,5:1** | WCAG 1.4.3 |
+| **ícone que carrega informação** | **4,5:1** | WCAG 1.4.3 |
 | objeto gráfico, borda ou preenchimento de controle | **3,0:1** | WCAG 1.4.11 |
 | texto grande (24px, ou 18,66px negrito) | 3,0:1 | WCAG 1.4.3 |
 
@@ -37,18 +39,32 @@ bolha, que tem outro fundo.
 ```html
 <p>algum texto</p>                     <!-- texto (4,5) — é o padrão -->
 <span data-papel="grafico"></span>     <!-- objeto gráfico (3,0) -->
+<svg data-papel="icone">…</svg>        <!-- ícone que INFORMA (4,5) -->
 <hr data-papel="ornamento">            <!-- isento, e você disse que é -->
 ```
 
+⚠️ **O `icone` nasceu de uma tela**, não de teoria: o ícone da barra de apps do
+aplicativo é a única pista de que uma tela veio de um serviço de terceiro
+(⧉) e não de nós (⊕). Sem um papel próprio ele ou escapava da medição (um
+`<svg>` não tem nó de texto) ou era medido contra 3,0 — a régua frouxa, num
+ícone de 18px que carrega a procedência da tela.
+
 ⚠️ **O fundo é MEDIDO, não declarado** — o verificador sobe a árvore até achar
 quem pinta de fato, porque `transparent` é o caso comum.
+
+⭐ **E o fundo de uma BORDA é o de trás, nunca o de dentro.** Um botão preenchido
+com a cor de acento e contornado com a mesma cor dava **1,00:1**: a moldura
+comparada com o próprio recheio. O que faz uma moldura ser perceptível é o que
+está do lado de fora dela.
 
 ## O que o verificador recusa a fazer
 
 Ele diz «não sei» em vez de inventar número, e isso é decisão:
 
-- **translucidez empilhada** (`rgba` sobre `rgba`) — o valor honesto exige a cor
-  final; ele pede que você a declare;
+- **translucidez empilhada** (`rgba` sobre `rgba`, ou `color-mix` com
+  `transparent`) — o valor honesto exige a cor final; ele pede que você a
+  declare. Hoje **duas** combinações do produto caem aqui: a `.tag` e a faixa de
+  erro (ver «o que estas telas acharam»);
 - **objeto sem tamanho** — quem declara `data-papel` e tem caixa `0×4`
   **reprova**. Foi assim que a trilha do player escapou da primeira versão:
   `flex:1` numa bolha que encolhe até o conteúdo dá largura zero, e o relatório
@@ -56,17 +72,46 @@ Ele diz «não sei» em vez de inventar número, e isso é decisão:
 
 ⛔ **«Não medida» nunca conta como aprovada.**
 
+⚠️ **E o que ele ainda NÃO mede:** tamanho de alvo de toque (a régua de 44×44
+abaixo é conferida por olho, não por código), foco de teclado, e
+`::placeholder` — pseudo-elemento não entra na varredura do DOM.
+
+### ⭐⭐ A válvula: reprova CONHECIDA
+
+Estas telas reproduzem o produto que **está no ar**. Quando o produto tem um
+defeito de contraste, a tela fiel reprova — e aí há duas saídas ruins e uma boa.
+As ruins: mexer na cor da reprodução (a tela passa a ensinar uma cor que não
+existe, e o defeito fica invisível justamente aqui, no único lugar que o mediria)
+ou baixar o piso. A boa é **declarar**:
+
+```html
+<input data-papel="grafico" data-reprova="OMINFRA-000: --line como moldura de controle">
+```
+
+⛔ **A trava que impede a válvula de virar vazamento: exceção que PASSA é
+falha.** Consertado o produto, o verificador exige que a declaração saia — senão
+em um ano o arquivo estaria cheio de perdões para defeitos que já não existem, e
+ninguém saberia quais ainda valem.
+
 ## Os tokens são EXTRAÍDOS, não digitados
 
 [`tokens/atual.json`](tokens/atual.json) tem os valores que estão em produção
 hoje, tirados dos quatro lugares onde eles vivem:
 
-| conjunto | serve |
-|---|---|
-| `app` | o aplicativo web e o Flutter — 56 tokens no tema escuro, 29 no claro |
-| `paginas` | as 8 páginas públicas de apresentação |
-| `documento` | as páginas-documento (`/sobre`, `/integracao`) |
-| `negocio` | a página pública de cada negócio |
+    node ferramentas/tokens.mjs ../tyego     # exige o produto ao lado + python3
+
+| conjunto | serve | o que tem |
+|---|---|---|
+| `app` | o aplicativo web e o Flutter (o «Cream») | 56 no escuro, 29 no claro |
+| `paginas` | as 8 páginas públicas de apresentação | 12 |
+| `documento` | as páginas-documento (`/sobre`, `/integracao`) | 10 |
+| `negocio` | a página pública de cada negócio | 6 de medida + **6 paletas × 2 temas × 11 cores** |
+
+⚠️ **O `negocio` tem forma diferente dos outros, e não é capricho:** ali as
+MEDIDAS são as mesmas para todo negócio, e a COR é por **ramo** (padaria, oficina,
+clínica, estúdio, agro, e o neutro) e por tema. Duas das onze cores são
+**derivadas** por regra (`--tinte` e `--grade`), não escritas: mexer numa paleta
+é mexer no acento e na tinta.
 
 ⛔ **E é aqui que está o problema de fundo do produto: são QUATRO conjuntos, e os
 dois principais têm temperatura oposta.**
@@ -81,41 +126,97 @@ neutros — então quem vem da página inicial e entra no app **atravessa uma
 mudança de temperatura**. É a principal razão de o produto não parecer um
 produto só, e nenhum framework conserta isso.
 
-⚠️ **Uma armadilha da extração, registrada porque me pegou:** pular os valores
-`var()` fez o token do tema **claro** vencer no lugar do escuro, em silêncio —
-`--in-bg` saiu `#FFFFFF` numa tela escura. Os `var()` são resolvidos **dentro do
-tema**.
+⚠️ **Duas armadilhas da extração, registradas porque me pegaram.** A primeira:
+pular os valores `var()` fez o token do tema **claro** vencer no lugar do escuro,
+em silêncio — `--in-bg` saiu `#FFFFFF` numa tela escura. A segunda é pior, porque
+tinha número ao lado: **um `:root` pode não ser texto.** As paletas da página de
+negócio são CALCULADAS em Python, e lendo só o CSS literal o conjunto saía com
+seis medidas e **nenhuma cor** — o relatório dizia «negocio 6», que se lê como
+«essa página usa poucos tokens» em vez de «o extrator não achou os dela».
 
 ## As telas
 
 | tela | o que ela exercita |
 |---|---|
+| [`telas/negocio.html`](telas/negocio.html) | ⭐ **a superfície de maior alcance**: a página pública de um negócio, a única que um estranho abre sem conta. Faixas, caixa de lista, carrossel, contato e o formulário que cai em Recebidos. Paleta `forno` |
+| [`telas/barra.html`](telas/barra.html) | ⭐ a barra de apps **nos dois clientes, lado a lado** — e a divergência entre eles |
 | [`telas/conversa.html`](telas/conversa.html) | a tela mais usada e a menos desenhada: bolha dos dois lados, player de voz, chip de arquivo, o campo de escrever |
+| [`telas/lista.html`](telas/lista.html) | uma lista densa (as Tarefas) com seções, etiquetas e ações — **e os três estados** (carregando, vazio, erro) como estão hoje |
+| [`telas/declarada.html`](telas/declarada.html) | uma **superfície declarada**: menus do serviço, ficha, gráfico, a tabela virando ficha no estreito, campo, escolha e ações |
 
 ⚠️ São reproduções **estáticas** e fiéis ao que está no ar — não são o produto.
 Servem para você mexer sem depender de nada, e para o verificador ter o que
 medir. Quando faltar uma, pede.
+
+⚠️ A coluna do Flutter em `barra.html` é reprodução **aproximada**: as medidas
+são as do `ListTile` denso que o código usa, mas a altura final é do layout do
+Flutter, não do HTML.
+
+## ⭐ O que estas telas ACHARAM no produto
+
+Não é lista de opinião: é o que o verificador mediu ao reproduzir o que está no
+ar. Os três primeiros estão declarados como **reprova conhecida** no markup.
+
+**1 · A moldura de campo reprova, nos DOIS clientes.** Todo campo de texto
+desenha a borda com `--line` / `kLine`: **1,19 a 1,39:1** no escuro, 1,27 a 1,61
+no claro, contra um piso de 3,0 (WCAG 1.4.11 cobre o limite de componente de
+interface). ⭐ E o mais importante: **o token certo existe e foi calibrado** —
+`--line-controle` dá 5,21 no escuro e 3,69 no claro. Ele é usado no campo de
+escrever da conversa e na trilha do player, e **não** na regra global de `input`
+do web nem no `campo` da superfície declarada. Não é «o desenho está ruim»: é uma
+regra usando o token errado, nos dois clientes.
+
+**2 · A linha estrutural da página de negócio reprova, nas seis paletas.**
+`--grade` dá **2,77 a 2,84:1** sobre o fundo e **2,25 a 2,33:1** na faixa
+tingida, no escuro. Ela é o traço de 2px entre faixas, a moldura da caixa de
+lista, a borda dos cartões **e a moldura dos campos** do formulário de contato.
+⛔ O auditor do próprio produto não pega porque o par `grade`/`bg` **não está na
+lista de pares dele** — mesma família do defeito que já foi corrigido ali, onde o
+alvo de um par estava escrito ao contrário.
+
+**3 · A barra de apps DIVERGIU entre os clientes.** No web o item não tem ícone;
+no Flutter tem, e o ícone é o que distingue uma tela nossa de uma que veio de um
+serviço. Não existe «o item da barra»: existem dois, e um deles carrega uma
+informação que o outro não dá. ⛔ E a coluna do web **não existe no navegador do
+celular** — abaixo de 720px a barra de apps e a lista de conversas desaparecem
+sem nada no lugar.
+
+**4 · Dois fundos translúcidos atrás de texto pequeno não têm número.** A
+etiqueta (`rgba(127,140,170,.18)`) e a faixa de erro (`color-mix(--danger 14%,
+transparent)`). Compondo à mão os dois passam; mas «passa quando eu componho na
+calculadora» não é o mesmo que «está declarado», e o próximo ajuste de fundo move
+os dois sem aviso.
 
 ## O que o produto tem que restringe o desenho
 
 **1 · Parte das telas é DECLARATIVA.** Serviços integrados descrevem a superfície
 deles num contrato **sem campo de cor, de fonte ou de medida**, e o okmigo a
 desenha nativamente — nunca roda código de terceiro dentro do app. Consequência:
-parte do trabalho é desenhar o **vocabulário** (tabela, gráfico, ficha,
-formulário, lista com ação), não telas individuais.
+parte do trabalho é desenhar o **vocabulário** (texto · caixa · colunas · imagem ·
+campo · escolha · calendário · arquivo · documento · tabela · gráfico · copiar ·
+autorizar · ações · fatos), não telas individuais.
 
 ⚠️ E o vocabulário tem limites que moldam a arquitetura: **uma superfície mostra
-uma lista**, e **não existe aba**.
+uma lista**, e **não existe aba**. Uma tela com três seções independentes quer
+navegação — e navegação não está no vocabulário. Decidir o que fazer com isso é
+parte do trabalho.
+
+⭐ A única cor que um serviço escolhe é a de uma série de gráfico, e ele escolhe
+por **nome semântico** (`positivo`/`negativo`/`neutro`/`atenção`), nunca por
+valor. ⛔ E não existe token de dado «neutro» no sistema: `--muted` é tinta de
+texto apagado e uma barra nessa cor lê como desligada, então o neutro cai no
+acento. É uma lacuna, não uma escolha.
 
 **2 · Cada peça precisa desenhar IGUAL em dois clientes** — o web (React +
 TypeScript) e o celular (Flutter). Uma peça que difere transforma o contrato em
-sugestão.
+sugestão, e `telas/barra.html` mostra o que acontece quando difere.
 
 **3 · As páginas públicas são HTML e CSS escritos no servidor, sem framework.**
 Não há React nem biblioteca de componentes nelas.
 
 **4 · Alvo de toque tem mínimo.** 44×44 é a régua deste repositório. Já
-corrigimos pontos de carrossel com **9×9** de área clicável.
+corrigimos pontos de carrossel com **9×9** de área clicável, e o botão «Entrar»
+da página de negócio saiu com 40px em produção.
 
 ## Como entregar
 
@@ -132,9 +233,13 @@ sem tradução no meio.
 
 O verificador usa [Playwright](https://playwright.dev) com **Firefox**.
 
-    npm i -D playwright && npx playwright install firefox
+    npm i && npx playwright install firefox
 
 ⚠️ **Firefox, e não Chromium** — o Chromium empacotado pelo Playwright não
 decodifica AAC, e o produto tem mensagem de voz em AAC/M4A. Numa tela com áudio,
 o Chromium mostra erro de reprodução que é do navegador de teste, não do
 produto.
+
+⚠️ O extrator de tokens também usa **python3** (as paletas da página de negócio
+são calculadas em Python). Isso é dependência de quem REGENERA os tokens, tendo o
+produto ao lado — nunca de quem desenha.

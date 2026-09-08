@@ -1,4 +1,4 @@
-node_modules/
+node_modules
 package-lock.json
 # ⛔ nada de captura do produto aqui: as telas deste repositório são
 # REPRODUÇÕES estáticas, e print do produto com dado real não entra.

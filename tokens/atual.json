@@ -133,16 +133,190 @@
     }
   },
   "negocio": {
-    "de": "api/src/okmigo/pagina_html.py",
+    "de": "api/src/okmigo/pagina_html.py + api/src/okmigo/paletas.py",
     "serve": "a página pública de cada negócio",
-    "temas": {
-      "escuro": {
-        "--largura": "76rem",
-        "--leitura": "38rem",
-        "--vao-junto": "14px",
-        "--vao-bloco": "28px",
-        "--vao-secao": "56px",
-        "--mono": "ui-monospace,SFMono-Regular,\\\"SF Mono\\\",Menlo,Consolas,\"\n            f\"\\\"Liberation Mono\\\",monospace"
+    "medida": {
+      "--largura": "76rem",
+      "--leitura": "38rem",
+      "--vao-junto": "14px",
+      "--vao-bloco": "28px",
+      "--vao-secao": "56px",
+      "--mono": "ui-monospace,SFMono-Regular,\"SF Mono\",Menlo,Consolas,\"Liberation Mono\",monospace"
+    },
+    "paletas": {
+      "neutro": {
+        "quando": "o padrão — serve qualquer negócio",
+        "claro": {
+          "--bg": "#FBFAF8",
+          "--papel": "#FFFFFF",
+          "--linha": "#E4DFD8",
+          "--tinta": "#1A1714",
+          "--apoio": "#6A6259",
+          "--fraco": "#797268",
+          "--acento": "#1F63D6",
+          "--fagulha": "#B96C12",
+          "--botao-txt": "#FFFFFF",
+          "--tinte": "#ECEFF6",
+          "--grade": "#1A1714"
+        },
+        "escuro": {
+          "--bg": "#131211",
+          "--papel": "#1B1918",
+          "--linha": "#322E2B",
+          "--tinta": "#EDEAE5",
+          "--apoio": "#A49C93",
+          "--fraco": "#898178",
+          "--acento": "#6EA8FE",
+          "--fagulha": "#F0A85C",
+          "--botao-txt": "#141110",
+          "--tinte": "#1F2630",
+          "--grade": "#5D5B59"
+        }
+      },
+      "forja": {
+        "quando": "oficina, serralheria, marcenaria, mecânica — trabalho com as mãos",
+        "claro": {
+          "--bg": "#FAF8F5",
+          "--papel": "#FFFFFF",
+          "--linha": "#E3DCD2",
+          "--tinta": "#191512",
+          "--apoio": "#6B6058",
+          "--fraco": "#7B7067",
+          "--acento": "#A8410F",
+          "--fagulha": "#7A6A55",
+          "--botao-txt": "#FFFFFF",
+          "--tinte": "#F4EBE5",
+          "--grade": "#191512"
+        },
+        "escuro": {
+          "--bg": "#12100E",
+          "--papel": "#1C1917",
+          "--linha": "#332D28",
+          "--tinta": "#EFEBE5",
+          "--apoio": "#A79C91",
+          "--fraco": "#8C8076",
+          "--acento": "#F08A4B",
+          "--fagulha": "#C4B49A",
+          "--botao-txt": "#141110",
+          "--tinte": "#2F2016",
+          "--grade": "#5D5A57"
+        }
+      },
+      "forno": {
+        "quando": "padaria, confeitaria, restaurante, café — comida",
+        "claro": {
+          "--bg": "#FDF9F3",
+          "--papel": "#FFFFFF",
+          "--linha": "#EADFCD",
+          "--tinta": "#1D1710",
+          "--apoio": "#6E6152",
+          "--fraco": "#80715F",
+          "--acento": "#9A5B12",
+          "--fagulha": "#3F6B4A",
+          "--botao-txt": "#FFFFFF",
+          "--tinte": "#F6EEE3",
+          "--grade": "#1D1710"
+        },
+        "escuro": {
+          "--bg": "#141109",
+          "--papel": "#1E1913",
+          "--linha": "#382F23",
+          "--tinta": "#F3EDE2",
+          "--apoio": "#B0A08A",
+          "--fraco": "#8E816D",
+          "--acento": "#F0A94B",
+          "--fagulha": "#79B58C",
+          "--botao-txt": "#141110",
+          "--tinte": "#312512",
+          "--grade": "#605C53"
+        }
+      },
+      "cuidado": {
+        "quando": "clínica, estética, terapia, pet — saúde e bem-estar",
+        "claro": {
+          "--bg": "#F7FAFA",
+          "--papel": "#FFFFFF",
+          "--linha": "#DAE6E5",
+          "--tinta": "#12191A",
+          "--apoio": "#566566",
+          "--fraco": "#677676",
+          "--acento": "#0F6E74",
+          "--fagulha": "#8A6BAE",
+          "--botao-txt": "#FFFFFF",
+          "--tinte": "#E7F0F1",
+          "--grade": "#12191A"
+        },
+        "escuro": {
+          "--bg": "#0E1314",
+          "--papel": "#161D1E",
+          "--linha": "#283234",
+          "--tinta": "#E8F0F0",
+          "--apoio": "#93A6A6",
+          "--fraco": "#758788",
+          "--acento": "#57C6CC",
+          "--fagulha": "#BFA3DC",
+          "--botao-txt": "#141110",
+          "--tinte": "#172A2C",
+          "--grade": "#585E5F"
+        }
+      },
+      "tinta": {
+        "quando": "tatuagem, barbearia, estúdio, fotografia — trabalho autoral",
+        "claro": {
+          "--bg": "#F7F6F8",
+          "--papel": "#FFFFFF",
+          "--linha": "#E0DCE4",
+          "--tinta": "#141218",
+          "--apoio": "#5D5766",
+          "--fraco": "#756E81",
+          "--acento": "#5B34C4",
+          "--fagulha": "#B03060",
+          "--botao-txt": "#FFFFFF",
+          "--tinte": "#ECE8F4",
+          "--grade": "#141218"
+        },
+        "escuro": {
+          "--bg": "#100E14",
+          "--papel": "#191621",
+          "--linha": "#2E2839",
+          "--tinta": "#EDEAF2",
+          "--apoio": "#A199B0",
+          "--fraco": "#857D91",
+          "--acento": "#A98BF5",
+          "--fagulha": "#E88AAE",
+          "--botao-txt": "#141110",
+          "--tinte": "#241E31",
+          "--grade": "#5B595F"
+        }
+      },
+      "campo": {
+        "quando": "jardinagem, hortifrúti, floricultura, agro — verde e terra",
+        "claro": {
+          "--bg": "#F8FAF6",
+          "--papel": "#FFFFFF",
+          "--linha": "#DEE6D6",
+          "--tinta": "#141A12",
+          "--apoio": "#5A6653",
+          "--fraco": "#6B7664",
+          "--acento": "#2E6B2C",
+          "--fagulha": "#96631B",
+          "--botao-txt": "#FFFFFF",
+          "--tinte": "#EAF0E8",
+          "--grade": "#141A12"
+        },
+        "escuro": {
+          "--bg": "#0F130D",
+          "--papel": "#181D15",
+          "--linha": "#2B3327",
+          "--tinta": "#EBF0E7",
+          "--apoio": "#9AA893",
+          "--fraco": "#7A8774",
+          "--acento": "#74C46F",
+          "--fagulha": "#D9A03F",
+          "--botao-txt": "#141110",
+          "--tinte": "#1C2A1A",
+          "--grade": "#5A5E57"
+        }
       }
     }
   }

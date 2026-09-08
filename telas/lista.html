@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Estojo · uma lista densa e os estados dela</title>
+<!-- ⭐ A LISTA DENSA do produto — as Tarefas (as pendências que o amigo
+     prometeu retomar). Ela entra aqui por dois motivos: é o padrão de lista que
+     todas as outras copiam, e é onde os ESTADOS estão tratados como sobra.
+
+     ⭐⭐ **Os três estados abaixo são LITERAIS, não uma crítica minha.** No
+     produto de hoje «carregando» é `<p class="hint">carregando…</p>`, o vazio é
+     um parágrafo, e o erro é uma faixa. Nenhum deles tem forma própria, e é por
+     isso que eles estão reproduzidos ao pé desta tela em vez de escondidos: uma
+     lista tem quatro aparências, e três delas nunca foram desenhadas.
+
+     ⚠️ **DUAS combinações desta tela saem como «não medida», e é achado, não
+     defeito do verificador.** A `.tag` e a faixa de erro pintam o fundo com
+     translucidez (`rgba(127,140,170,.18)` e `color-mix(--danger 14%,
+     transparent)`), e o número honesto de um texto sobre fundo translúcido
+     exige a cor FINAL. Compondo à mão: a faixa de erro dá ~`#34211F` sobre o
+     `--bg`, e aí `--danger` passa com folga; a `.tag` dá ~`#2A2C33`, e
+     `--muted` sobre ela também passa. ⛔ Mas «passa quando eu componho na
+     calculadora» não é o mesmo que «está declarado»: hoje ninguém no produto
+     sabe esses dois números, e o próximo ajuste de fundo os move sem aviso. -->
+<style>
+:root {
+  --bg: #131211;
+  --panel: #1B1918;
+  --panel-2: #242120;
+  --line: #322E2B;
+  --text: #EDEAE5;
+  --muted: #A49C93;
+  --fraco: #8F877F;
+  --accent: #6EA8FE;
+  --danger: #FF7A7A;
+  --ok-texto: #5FCB8B;
+  --t-secao: 18px; --t-corpo: 15px; --t-base: 14px; --t-apoio: 13px;
+  --t-mini: 12px; --t-micro: 11px;
+  --e1: 4px; --e2: 8px; --e3: 12px; --e4: 16px;
+  --leitura: 46rem;
+  --r-menu: 16px; --r-pequeno: 4px;
+  --fonte: "Montserrat", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box }
+body { margin:0; background:var(--bg); color:var(--text); font:15px/1.5 var(--fonte) }
+.painel { padding:22px 26px 40px; max-width:52rem; margin:0 auto }
+.painel-topo { display:flex; align-items:baseline; justify-content:space-between;
+  gap:var(--e3); margin-bottom:var(--e1) }
+.painel-topo h2 { margin:0; font-size:17px }
+.painel > p.sub { margin:0; font-size:var(--t-apoio); color:var(--muted) }
+/* A seção é um rótulo pequeno em caixa alta — o único degrau de hierarquia que
+   a lista tem hoje. */
+.painel h3 { font-size:var(--t-mini); text-transform:uppercase; letter-spacing:.6px;
+  color:var(--muted); margin:22px 0 var(--e2); font-weight:600 }
+/* ⭐ «já passou» precisa saltar: é a única informação da tela que pede ação
+   HOJE, e ela some se todos os títulos forem iguais. */
+h3.urgente { color:var(--danger) }
+.filtros { display:flex; flex-wrap:wrap; gap:var(--e1); margin:var(--e2) 0 }
+.filtros button { padding:2px var(--e2); font:inherit; font-size:var(--t-mini);
+  color:var(--text); background:var(--panel-2); border:1px solid var(--line);
+  border-radius:999px; cursor:pointer }
+.filtros button.atual { border-color:var(--accent); color:var(--accent) }
+.fatos { list-style:none; margin:0; padding:0 }
+.fatos li { display:flex; align-items:baseline; gap:var(--e3);
+  padding:var(--e2) 0; border-bottom:1px solid var(--line) }
+.fato-texto { flex:1; line-height:1.45 }
+.fato-acao { display:flex; align-items:baseline; gap:10px; white-space:nowrap;
+  font-size:var(--t-mini) }
+.linha-meta { margin-top:3px; font-size:11.5px; color:var(--fraco) }
+/* ⚠️ Fundo TRANSLÚCIDO atrás de texto pequeno — ver o aviso no topo do arquivo. */
+.tag { margin-left:var(--e2); font-size:var(--t-micro); padding:1px 6px;
+  border-radius:var(--r-pequeno); background:rgba(127,140,170,.18); color:var(--muted) }
+.riscado { text-decoration:line-through }
+.fatos.apagados li { opacity:.55 }
+.linkish { background:none; border:0; padding:0; font:inherit; font-size:var(--t-mini);
+  color:var(--accent); cursor:pointer; text-decoration:underline }
+.linkish.feito { color:var(--ok-texto) }
+/* ── os três estados, como estão no produto hoje ── */
+.estados { margin-top:38px; border-top:1px solid var(--line); padding-top:18px }
+.estados h3 { margin-top:18px }
+p.hint { margin:0; font-size:12.5px; color:var(--muted); line-height:1.5 }
+.vazio-feed { color:var(--muted); max-width:var(--leitura); margin:0 }
+.banner { margin:10px 0 0; padding:var(--e2) var(--e3); border-radius:var(--r-menu);
+  border-left:3px solid var(--danger); font-size:var(--t-apoio); line-height:1.45;
+  max-width:var(--leitura) }
+.banner.error { background:color-mix(in srgb, var(--danger) 14%, transparent);
+  color:var(--danger) }
+</style></head><body>
+<div class="painel">
+  <div class="painel-topo">
+    <h2>Tarefas</h2>
+    <span class="fato-acao"><button class="linkish">mostrar as fechadas</button></span>
+  </div>
+  <p class="sub">O que ele prometeu retomar com você. Quem escreve aqui é o
+    worker, não a conversa.</p>
+
+  <div class="filtros">
+    <button class="atual">todas</button>
+    <button>só as minhas</button>
+    <button>com prazo</button>
+    <button>sem prazo</button>
+  </div>
+
+  <h3 class="urgente">já passou</h3>
+  <ul class="fatos">
+    <li><div class="fato-texto">Ligar para a oficina sobre o orçamento do Gol
+        <span class="tag">retomar</span>
+        <div class="linha-meta">prometido em 28 de maio · era para 2 de junho</div></div>
+      <span class="fato-acao"><button class="linkish feito">feito</button>
+        <button class="linkish">adiar</button></span></li>
+    <li><div class="fato-texto">Mandar as notas de maio para o contador
+        <span class="tag">documento</span>
+        <div class="linha-meta">prometido em 30 de maio · era para 5 de junho</div></div>
+      <span class="fato-acao"><button class="linkish feito">feito</button>
+        <button class="linkish">adiar</button></span></li>
+  </ul>
+
+  <h3>esta semana</h3>
+  <ul class="fatos">
+    <li><div class="fato-texto">Confirmar com a Joana o bolo de sábado
+        <div class="linha-meta">prometido ontem · para 8 de junho</div></div>
+      <span class="fato-acao"><button class="linkish feito">feito</button>
+        <button class="linkish">adiar</button></span></li>
+    <li><div class="fato-texto">Ver se o consentimento do banco vence este mês
+        <span class="tag">financeiro</span>
+        <div class="linha-meta">prometido há 3 dias · para 9 de junho</div></div>
+      <span class="fato-acao"><button class="linkish feito">feito</button>
+        <button class="linkish">adiar</button></span></li>
+    <li><div class="fato-texto">Responder o recado da Padaria Aurora
+        <div class="linha-meta">prometido hoje · sem prazo</div></div>
+      <span class="fato-acao"><button class="linkish feito">feito</button>
+        <button class="linkish">adiar</button></span></li>
+  </ul>
+
+  <h3>fechadas</h3>
+  <!-- ⭐ A fechada fica VISÍVEL e claramente fora de uso. Se sumisse, a tela
+       mentiria sobre o que ainda existe. -->
+  <ul class="fatos apagados">
+    <li><div class="fato-texto"><span class="riscado">Comprar a capa do banco
+        traseiro</span>
+        <div class="linha-meta">fechada em 1 de junho</div></div>
+      <span class="fato-acao"><button class="linkish">reabrir</button></span></li>
+  </ul>
+
+  <section class="estados">
+    <h3>o mesmo painel, carregando</h3>
+    <p class="hint">carregando…</p>
+
+    <h3>o mesmo painel, vazio</h3>
+    <p class="vazio-feed">Nada por aqui. Quando ele prometer retomar algo, aparece
+      nesta lista.</p>
+
+    <h3>o mesmo painel, com erro</h3>
+    <div class="banner error">Não conseguimos carregar suas tarefas agora.</div>
+  </section>
+</div>
+</body></html>

@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Estojo · a página de um negócio</title>
+<!-- ⭐ A SUPERFÍCIE DE MAIOR ALCANCE, e a única que um estranho abre sem conta:
+     é o endereço que o dono manda no WhatsApp. Ela carrega a primeira impressão
+     do produto para DUAS pessoas ao mesmo tempo — o cliente do negócio e o
+     futuro usuário.
+
+     ⚠️ Os valores vêm de `tokens/atual.json` → `negocio`, e ali eles têm DUAS
+     naturezas: as MEDIDAS são as mesmas para todo negócio, e a COR é por RAMO.
+     Esta tela usa a paleta `forno` (padaria, confeitaria, restaurante, café) no
+     tema escuro. Trocar as onze cores do bloco `:root` pelas de outra paleta do
+     JSON é o teste de que o desenho não depende de uma cor específica.
+
+     ⛔ **Duas delas NÃO se escrevem à mão: `--tinte` e `--grade` são DERIVADAS**
+     (`paletas.derivados`, mistura em sRGB com peso diferente por tema). Se você
+     mexer numa paleta, mexe no acento e na tinta — as duas saem da regra. -->
+<style>
+:root {
+  /* medida — iguais em todo negócio */
+  --largura: 76rem;
+  --leitura: 38rem;
+  --vao-junto: 14px;
+  --vao-bloco: 28px;
+  --vao-secao: 56px;
+  --mono: ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  /* paleta `forno`, tema escuro */
+  --bg: #141109;
+  --papel: #1E1913;
+  --linha: #382F23;
+  --tinta: #F3EDE2;
+  --apoio: #B0A08A;
+  --fraco: #8E816D;
+  --acento: #F0A94B;
+  --fagulha: #79B58C;
+  --botao-txt: #141110;
+  --tinte: #312512;   /* derivado: 13% do acento sobre o bg */
+  --grade: #605C53;   /* derivado: 34% da tinta sobre o bg */
+  color-scheme: dark;
+}
+* { box-sizing: border-box }
+body { margin:0; background:var(--bg); color:var(--tinta);
+  font:16px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased }
+/* ⭐ AS FAIXAS: cada seção vai de borda a borda e um traço de 2px a separa da
+   próxima. É o traço COMPARTILHADO que diz que uma termina onde a outra começa
+   — a diferença entre um documento e uma pilha de cartões. */
+.faixa { border-bottom:2px solid var(--grade) }
+.faixa > .dentro { max-width:var(--largura); margin:0 auto;
+  padding:clamp(30px,4.5vw,52px) clamp(20px,3.6vw,44px) clamp(36px,5.5vw,60px) }
+/* A faixa tingida alterna pela ORDEM que o dono escolheu, então carrega
+   informação em vez de decorar. ⛔ E ela troca o `--fraco` pelo `--apoio`: o
+   `--fraco` foi afinado até passar por pouco contra `papel` e contra `bg`, e um
+   TERCEIRO fundo o derruba (3,93 a 4,12:1 nas seis paletas). */
+.faixa.tingida { background:var(--tinte); --fraco:var(--apoio) }
+.cabeca { display:flex; flex-direction:column-reverse; align-items:flex-start;
+  gap:6px; margin-bottom:clamp(20px,2.6vw,30px) }
+@media (min-width:46rem) { .cabeca { flex-direction:row; align-items:baseline; gap:16px } }
+.cabeca h2 { margin:0; font-size:clamp(26px,4.4vw,38px); font-weight:800;
+  letter-spacing:-.025em; line-height:1.06; text-wrap:balance }
+.mono,.ordinal,.rot,.conta,footer .diz,.lista .ordem,.arraste {
+  font-family:var(--mono); font-size:11px; letter-spacing:.07em;
+  text-transform:uppercase; color:var(--fraco) }
+.ordinal { white-space:nowrap }
+.ordinal b { color:var(--acento); font-weight:500 }
+/* ── o topo ── uma barra só: a página não se apresenta duas vezes. */
+.topo { border-bottom:2px solid var(--grade); background:var(--bg) }
+.topo .dentro { max-width:var(--largura); margin:0 auto;
+  padding:13px clamp(20px,3.6vw,44px); display:flex; align-items:center; gap:18px }
+.topo .quem { display:flex; align-items:baseline; gap:10px; margin-right:auto; min-width:0 }
+.topo h1 { margin:0; font-size:clamp(15px,2.4vw,20px); font-weight:800;
+  letter-spacing:-.01em; text-transform:uppercase;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
+.topo .cara { white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
+.topo nav { display:flex; gap:22px }
+.topo nav a { display:inline-flex; align-items:center; min-height:44px;
+  color:var(--tinta); text-decoration:none; font-family:var(--mono); font-size:11px;
+  letter-spacing:.09em; text-transform:uppercase; font-weight:500;
+  padding:3px 0; border-bottom:2px solid transparent; white-space:nowrap }
+.topo nav a:hover { border-bottom-color:var(--acento) }
+/* ⚠️ No estreito o menu de âncoras SOME e o botão fica: o que se perde é um
+   atalho para conteúdo logo abaixo; sem o botão perde-se o único caminho para
+   dentro do produto. E o `@` sai antes do nome — nome cortado é pior, o `@` está
+   na própria URL que a pessoa acabou de abrir. */
+@media (max-width:44rem) { .topo nav { display:none } }
+@media (max-width:34rem) { .topo .cara { display:none } }
+/* ⭐ Canto RETO: é o que faz esta página ler como editorial em vez de
+   «aplicativo». ⚠️ Não vale para o app, que é arredondado — outra superfície,
+   outro público. E `min-height:44px` porque em produção este botão saiu com
+   40px a 390px, abaixo do alvo mínimo (WCAG 2.5.5). */
+.botao { display:inline-flex; align-items:center; justify-content:center;
+  min-height:44px; border-radius:0; background:var(--acento); text-decoration:none;
+  padding:8px 22px; white-space:nowrap; border:2px solid var(--acento); cursor:pointer }
+.botao span { font-family:var(--mono); font-weight:600; font-size:11.5px;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--botao-txt) }
+/* ── a caixa de lista: serve «o que temos» e «avisos» ── */
+.lista { border:2px solid var(--grade); background:var(--papel) }
+.lista ol { margin:0; padding:0; list-style:none }
+.lista li { display:flex; gap:16px; align-items:baseline; padding:14px 18px;
+  border-bottom:1px solid var(--linha) }
+.lista li:last-child { border-bottom:0 }
+.lista .fio { flex:1; min-width:12px; height:0; border-bottom:1px dotted var(--linha);
+  align-self:center }
+.lista .ordem { flex:none; font-size:10.5px }
+.lista .oque { margin:0; max-width:var(--leitura) }
+.lista time { display:block; margin-top:5px; font-family:var(--mono);
+  font-size:10.5px; letter-spacing:.06em; color:var(--fraco) }
+/* ── o carrossel: encaixe do CSS, arraste do navegador, zero script ── */
+.carrossel { display:flex; gap:var(--vao-junto); overflow-x:auto;
+  scroll-snap-type:x mandatory; overscroll-behavior-x:contain;
+  padding:3px 0 14px; scrollbar-width:thin; scrollbar-color:var(--apoio) transparent }
+.lista + .carrossel { margin-top:var(--vao-bloco) }
+@media (min-width:62rem) {
+  .dupla { display:grid; grid-template-columns:26rem minmax(0,1fr); gap:32px;
+    align-items:start }
+  .dupla .lista + .carrossel { margin-top:0 }
+}
+/* ⭐ `min(78%,21rem)`: no celular um cartão ocupa 78% e o próximo aparece
+   CORTADO — é o corte que ensina que dá para arrastar. */
+.obra { flex:0 0 min(78%,21rem); scroll-snap-align:start; display:flex;
+  flex-direction:column; background:var(--papel); border:1px solid var(--grade);
+  border-radius:0 }
+.obra img { display:block; width:100%; aspect-ratio:4/3; object-fit:cover;
+  border-bottom:1px solid var(--grade) }
+.obra .dizeres { padding:12px 14px 14px; display:flex; flex-direction:column;
+  gap:6px; flex:1 }
+.obra p { margin:0; font-size:14.5px; line-height:1.45; font-weight:600 }
+.obra .conta { margin-top:auto; font-size:10px }
+.obra.sem-foto p { font-size:15.5px; font-weight:500 }
+.arraste { display:block; margin-top:-6px }
+.recado time { font-family:var(--mono); font-size:10px; letter-spacing:.06em;
+  color:var(--fraco) }
+/* ── o pé: como falar com o negócio, e o formulário que cai em Recebidos ── */
+.pe > .dentro.duas { display:grid; gap:var(--vao-secao) }
+@media (min-width:62rem) { .pe > .dentro.duas { grid-template-columns:1fr 1.35fr } }
+.contatos { display:grid; gap:var(--vao-bloco) }
+.campo { display:flex; flex-direction:column; gap:3px; min-width:0 }
+.campo .valor { font-size:15px; font-weight:600; color:var(--tinta); text-decoration:none }
+.campo a.valor { border-bottom:2px solid var(--acento); align-self:flex-start;
+  min-height:44px; display:inline-flex; align-items:center }
+.formulario form { display:grid; gap:14px }
+.formulario label { display:grid; gap:6px; font-family:var(--mono); font-size:10.5px;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--fraco) }
+.formulario .opcional { text-transform:none; letter-spacing:0 }
+.formulario input,.formulario textarea { font:inherit; font-size:15px; color:var(--tinta);
+  background:var(--papel); border:2px solid var(--grade); border-radius:0;
+  padding:11px 13px; width:100%; min-height:44px }
+.formulario textarea { resize:vertical; min-height:86px }
+.formulario button { width:auto; justify-self:start }
+.formulario .rodape-form { margin:2px 0 0; font-size:12.5px; line-height:1.5;
+  color:var(--fraco) }
+.formulario .recebido { margin:0 0 14px; padding:11px 14px; font-size:14px;
+  background:var(--papel); border-left:4px solid var(--acento) }
+footer > .dentro { max-width:var(--largura); margin:0 auto;
+  padding:20px clamp(20px,3.6vw,44px); display:flex; align-items:center;
+  justify-content:space-between; gap:16px; flex-wrap:wrap }
+footer a { display:inline-flex; align-items:center; gap:8px; min-height:44px;
+  color:var(--apoio); text-decoration:none; font-family:var(--mono); font-size:11px;
+  letter-spacing:.09em; text-transform:uppercase }
+</style></head><body>
+
+<header class="topo"><div class="dentro">
+  <span class="quem">
+    <h1>Padaria Aurora</h1>
+    <span class="cara mono">@padaria_aurora · Santo André</span>
+  </span>
+  <nav>
+    <a href="#tem">o que temos</a><a href="#recados">recados</a><a href="#falar">falar</a>
+  </nav>
+  <a class="botao" href="#" data-papel="grafico"><span>Entrar</span></a>
+</div></header>
+
+<main>
+  <!-- ⚠️ O traço de 2px entre faixas usa a MESMA `--grade` que reprova nos
+       campos, e aqui ele NÃO é declarado como objeto gráfico: separador de
+       seção não é informação nem controle (1.4.11 fala de "objeto gráfico
+       necessário para entender o conteúdo" e de limite de COMPONENTE). ⛔ Mas
+       é a peça que carrega o desenho inteiro — «o traço que faz a página
+       parecer construída em vez de empilhada» — e no escuro ela está em
+       2,8:1. Isento pela régua, quebrado pelo olho: os dois são verdade, e
+       quem for redesenhar precisa saber dos dois. -->
+  <section class="faixa" id="tem"><div class="dentro">
+    <div class="cabeca">
+      <h2>O que temos</h2>
+      <span class="ordinal"><b>01</b> / catálogo</span>
+    </div>
+    <div class="dupla">
+      <div class="lista" data-papel="grafico" data-reprova="--grade 2,77-2,84:1 sobre --bg e 2,25-2,33:1 sobre --tinte, no ESCURO, nas SEIS paletas · piso 3,0 (WCAG 1.4.11) · defeito do PRODUTO: o par grade/bg nao esta no PARES de paletas.py"><ol>
+        <li><span class="ordem">01</span>
+          <p class="oque">Pão de fermentação natural, fornada às 7h e às 16h</p>
+          <span class="fio" data-papel="ornamento"></span></li>
+        <li><span class="ordem">02</span>
+          <p class="oque">Bolo de fubá com goiabada — inteiro ou em fatia</p>
+          <span class="fio" data-papel="ornamento"></span></li>
+        <li><span class="ordem">03</span>
+          <p class="oque">Encomenda de salgado para festa, com dois dias de antecedência</p>
+          <span class="fio" data-papel="ornamento"></span></li>
+        <li><span class="ordem">04</span>
+          <p class="oque">Café coado na hora, para levar</p>
+          <span class="fio" data-papel="ornamento"></span></li>
+      </ol></div>
+      <div>
+        <div class="carrossel">
+          <figure class="obra" data-papel="grafico" data-reprova="--grade 2,77-2,84:1 sobre --bg e 2,25-2,33:1 sobre --tinte, no ESCURO, nas SEIS paletas · piso 3,0 (WCAG 1.4.11) · defeito do PRODUTO: o par grade/bg nao esta no PARES de paletas.py">
+            <img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 3'%3E%3Crect width='4' height='3' fill='%23312512'/%3E%3Ccircle cx='2' cy='1.5' r='.9' fill='%23F0A94B' opacity='.5'/%3E%3C/svg%3E">
+            <figcaption class="dizeres">
+              <p>Fornada da manhã</p>
+              <span class="conta">01 / 07</span>
+            </figcaption>
+          </figure>
+          <figure class="obra" data-papel="grafico" data-reprova="--grade 2,77-2,84:1 sobre --bg e 2,25-2,33:1 sobre --tinte, no ESCURO, nas SEIS paletas · piso 3,0 (WCAG 1.4.11) · defeito do PRODUTO: o par grade/bg nao esta no PARES de paletas.py">
+            <img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 3'%3E%3Crect width='4' height='3' fill='%23382F23'/%3E%3Crect x='.6' y='1' width='2.8' height='1' fill='%2379B58C' opacity='.5'/%3E%3C/svg%3E">
+            <figcaption class="dizeres">
+              <p>Bolo de fubá inteiro</p>
+              <span class="conta">02 / 07</span>
+            </figcaption>
+          </figure>
+          <!-- Obra SEM foto continua valendo: sai como cartão de texto do mesmo
+               tamanho, e a fileira não abre buraco. -->
+          <figure class="obra sem-foto" data-papel="grafico" data-reprova="--grade 2,77-2,84:1 sobre --bg e 2,25-2,33:1 sobre --tinte, no ESCURO, nas SEIS paletas · piso 3,0 (WCAG 1.4.11) · defeito do PRODUTO: o par grade/bg nao esta no PARES de paletas.py">
+            <figcaption class="dizeres">
+              <p>Salgado para festa — cento de coxinha, risole e enroladinho</p>
+              <span class="conta">03 / 07</span>
+            </figcaption>
+          </figure>
+        </div>
+        <span class="arraste">arraste para ver as outras 4</span>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="faixa tingida" id="recados"><div class="dentro">
+    <div class="cabeca">
+      <h2>Recados</h2>
+      <span class="ordinal"><b>02</b> / o que é novo</span>
+    </div>
+    <div class="lista" data-papel="grafico" data-reprova="--grade 2,77-2,84:1 sobre --bg e 2,25-2,33:1 sobre --tinte, no ESCURO, nas SEIS paletas · piso 3,0 (WCAG 1.4.11) · defeito do PRODUTO: o par grade/bg nao esta no PARES de paletas.py"><ol>
+      <li><span class="ordem">novo</span>
+        <div class="oque"><p style="margin:0">Sexta a padaria abre às 6h — tem pão doce
+          saindo do forno mais cedo por causa do feriado.</p>
+          <time>3 de junho</time></div></li>
+      <li><span class="ordem">—</span>
+        <div class="oque"><p style="margin:0">Voltamos com a torta de limão nos fins
+          de semana.</p><time>28 de maio</time></div></li>
+    </ol></div>
+    <div class="carrossel">
+      <figure class="obra recado" data-papel="grafico" data-reprova="--grade 2,77-2,84:1 sobre --bg e 2,25-2,33:1 sobre --tinte, no ESCURO, nas SEIS paletas · piso 3,0 (WCAG 1.4.11) · defeito do PRODUTO: o par grade/bg nao esta no PARES de paletas.py">
+        <img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 3'%3E%3Crect width='4' height='3' fill='%231E1913'/%3E%3Cpath d='M0 3 L2 .8 L4 3Z' fill='%23F0A94B' opacity='.4'/%3E%3C/svg%3E">
+        <figcaption class="dizeres">
+          <p>Vitrine cheia às 7h05</p>
+          <time>3 de junho</time>
+        </figcaption>
+      </figure>
+    </div>
+  </div></section>
+
+  <section class="faixa pe" id="falar"><div class="dentro duas">
+    <div class="contatos">
+      <div class="cabeca">
+        <h2>Falar com a gente</h2>
+        <span class="ordinal"><b>03</b> / contato</span>
+      </div>
+      <div class="campo"><span class="rot">telefone</span>
+        <a class="valor" href="tel:+5511999990000">(11) 99999-0000</a></div>
+      <div class="campo"><span class="rot">onde</span>
+        <span class="valor">Rua das Palmeiras, 214 — Santo André</span></div>
+      <div class="campo"><span class="rot">quando</span>
+        <span class="valor">Terça a domingo, 6h às 19h</span></div>
+    </div>
+    <div class="formulario">
+      <!-- ⭐ O que a pessoa escreve aqui cai em RECEBIDOS, dentro do okmigo, na
+           conta do negócio — não num e-mail que ninguém lê. -->
+      <p class="recebido" data-papel="grafico">Recebemos. A Aurora responde por aqui.</p>
+      <form>
+        <label>seu nome
+          <input type="text" value="Joana Prado" data-papel="grafico" data-reprova="--grade 2,77-2,84:1 sobre --bg e 2,25-2,33:1 sobre --tinte, no ESCURO, nas SEIS paletas · piso 3,0 (WCAG 1.4.11) · defeito do PRODUTO: o par grade/bg nao esta no PARES de paletas.py"></label>
+        <label>telefone ou e-mail
+          <input type="text" value="joana@example.com" data-papel="grafico" data-reprova="--grade 2,77-2,84:1 sobre --bg e 2,25-2,33:1 sobre --tinte, no ESCURO, nas SEIS paletas · piso 3,0 (WCAG 1.4.11) · defeito do PRODUTO: o par grade/bg nao esta no PARES de paletas.py"></label>
+        <label>o que você precisa <span class="opcional">(opcional)</span>
+          <textarea rows="3" data-papel="grafico" data-reprova="--grade 2,77-2,84:1 sobre --bg e 2,25-2,33:1 sobre --tinte, no ESCURO, nas SEIS paletas · piso 3,0 (WCAG 1.4.11) · defeito do PRODUTO: o par grade/bg nao esta no PARES de paletas.py">Queria encomendar um bolo para sábado.</textarea></label>
+        <button class="botao" type="button" data-papel="grafico"><span>Enviar</span></button>
+        <p class="rodape-form">Não tem conta? Não precisa — isto chega direto para
+          quem cuida da padaria.</p>
+      </form>
+    </div>
+  </div></section>
+</main>
+
+<footer><div class="dentro">
+  <span class="diz">página feita no okmigo</span>
+  <a href="#">okmigo.com</a>
+</div></footer>
+</body></html>

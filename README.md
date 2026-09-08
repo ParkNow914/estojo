@@ -11,10 +11,23 @@ diga — provavelmente falta uma tela aqui, não um acesso.
 ## Comece por aqui
 
     npm i
-    node verificar/contraste.mjs telas/*.html
+    npm run verificar
 
-Ele mede **no pixel renderizado** e sai com código 1 se algo reprovar. Rode antes
-de entregar qualquer coisa.
+São **dois** verificadores, e eles são separados de propósito:
+
+| | mede | pisos |
+|---|---|---|
+| `verificar/contraste.mjs` | contraste, **no pixel renderizado** | 4,5 texto e ícone · 3,0 objeto gráfico |
+| `verificar/alvo.mjs` | **tamanho do alvo de toque** | 24×24 (SC 2.5.8, AA) · 44×44 (a régua daqui) |
+
+⭐ **Por que dois arquivos e não um.** O `.linkish` que fecha uma tarefa passa
+folgado no contraste (**9,27:1**) e reprova no alvo (**27×18**). As duas réguas
+discordam sobre o mesmo elemento, se consertam em lugares diferentes, e um
+verificador que medisse as duas juntas viraria «o verificador» — quem lê o
+relatório deixaria de saber qual régua falou.
+
+Os dois saem com código 1 se algo reprovar. Rode antes de entregar qualquer
+coisa.
 
 ## ⭐⭐ A pergunta que este repositório existe para forçar
 
@@ -72,9 +85,11 @@ Ele diz «não sei» em vez de inventar número, e isso é decisão:
 
 ⛔ **«Não medida» nunca conta como aprovada.**
 
-⚠️ **E o que ele ainda NÃO mede:** tamanho de alvo de toque (a régua de 44×44
-abaixo é conferida por olho, não por código), foco de teclado, e
-`::placeholder` — pseudo-elemento não entra na varredura do DOM.
+⚠️ **E o que ele ainda NÃO mede:** foco de teclado, e `::placeholder` —
+pseudo-elemento não entra na varredura do DOM. O `alvo.mjs`, por sua vez, mede a
+CAIXA do elemento e nada além: área ampliada por `::before` invisível, `hit-slop`
+do Flutter e o espaçamento entre alvos vizinhos (que a 2.5.8 perdoa) seguem
+sendo conferidos por olho.
 
 ### ⭐⭐ A válvula: reprova CONHECIDA
 
@@ -85,8 +100,12 @@ existe, e o defeito fica invisível justamente aqui, no único lugar que o medir
 ou baixar o piso. A boa é **declarar**:
 
 ```html
-<input data-papel="grafico" data-reprova="OMINFRA-000: --line como moldura de controle">
+<input  data-papel="grafico" data-reprova="OMINFRA-000: --line como moldura de controle">
+<button data-reprova-alvo="OMINFRA-000: 27×18, ação por linha da lista">feito</button>
 ```
+
+⛔ **São dois atributos, e não um por descuido:** um perdão de COR não pode calar
+um alvo pequeno. Duas réguas, duas desculpas.
 
 ⛔ **A trava que impede a válvula de virar vazamento: exceção que PASSA é
 falha.** Consertado o produto, o verificador exige que a declaração saia — senão
@@ -181,7 +200,16 @@ informação que o outro não dá. ⛔ E a coluna do web **não existe no navega
 celular** — abaixo de 720px a barra de apps e a lista de conversas desaparecem
 sem nada no lugar.
 
-**4 · Dois fundos translúcidos atrás de texto pequeno não têm número.** A
+**4 · A ação de cada linha da lista mais densa tem 18px de altura.** `feito` é
+**27×18** e `adiar` é **31×18** — abaixo do piso **AA** de 24×24 (SC 2.5.8), não
+só da régua de 44. ⭐ E o contraste comparativo é o achado: a **página pública**
+tem **zero** alvos abaixo de 44 (ela crava `min-height:44px` em botão, link de
+menu e campo, porque isso já custou um defeito em produção), enquanto o
+aplicativo tem 23 abaixo de 44 nas telas reproduzidas aqui — os 6 menus de
+serviço com 37px, o «+ serviços» com 35 e as 12 ações de linha com 18. A
+superfície escrita à mão obedece à régua; a que tem sistema de desenho, não.
+
+**5 · Dois fundos translúcidos atrás de texto pequeno não têm número.** A
 etiqueta (`rgba(127,140,170,.18)`) e a faixa de erro (`color-mix(--danger 14%,
 transparent)`). Compondo à mão os dois passam; mas «passa quando eu componho na
 calculadora» não é o mesmo que «está declarado», e o próximo ajuste de fundo move
@@ -214,15 +242,16 @@ sugestão, e `telas/barra.html` mostra o que acontece quando difere.
 **3 · As páginas públicas são HTML e CSS escritos no servidor, sem framework.**
 Não há React nem biblioteca de componentes nelas.
 
-**4 · Alvo de toque tem mínimo.** 44×44 é a régua deste repositório. Já
-corrigimos pontos de carrossel com **9×9** de área clicável, e o botão «Entrar»
-da página de negócio saiu com 40px em produção.
+**4 · Alvo de toque tem mínimo, e agora ele é MEDIDO** (`verificar/alvo.mjs`).
+44×44 é a régua deste repositório; 24×24 é o piso da WCAG abaixo do qual é
+reprova. Já corrigimos pontos de carrossel com **9×9** de área clicável, e o
+botão «Entrar» da página de negócio saiu com 40px em produção.
 
 ## Como entregar
 
 Trabalhe aqui, em PR neste repositório. Cada PR:
 
-1. roda `node verificar/contraste.mjs telas/*.html` sem reprovar;
+1. roda `npm run verificar` sem reprovar — os dois;
 2. diz **o que estava errado antes** e o que mudou — não só o que ficou bonito;
 3. se mexeu em token, diz qual e por quê.
 

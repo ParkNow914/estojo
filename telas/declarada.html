@@ -70,6 +70,13 @@ body { margin:0; background:var(--bg); color:var(--text); font:15px/1.5 var(--fo
   gap:var(--e3) }
 .cartao { background:var(--panel-2); border:1px solid var(--line);
   border-radius:var(--r-menu); padding:var(--e3) }
+/* ⚠️ Série de gráfico precisa de LEGENDA: a cor sozinha carregando a
+   identidade da série reprova em 1.4.1, e um leitor de tela recebe o
+   `aria-label` — quem vê em preto e branco não recebe nada. */
+.legenda { display:flex; align-items:center; gap:6px; margin:0 0 var(--e2);
+  font-size:var(--t-mini); color:var(--muted) }
+.legenda .chave { width:10px; height:10px; border-radius:2px; background:var(--ok) }
+.legenda .chave.nao { background:var(--danger); margin-left:var(--e2) }
 .cartao h4 { margin:0 0 var(--e2); font-size:var(--t-mini); letter-spacing:.08em;
   text-transform:uppercase; color:var(--fraco); font-weight:620 }
 .linha-metrica { display:flex; justify-content:space-between; align-items:baseline;
@@ -107,6 +114,11 @@ body { margin:0; background:var(--bg); color:var(--text); font:15px/1.5 var(--fo
   font-size:12.5px; color:var(--muted); line-height:1.5 }
 </style></head><body>
 <div class="painel">
+  <!-- ⚠️ **SEIS menus não cabem em 390px**, e o que sobra rola na horizontal
+       sem nenhum aviso de que há mais: o último visível fica cortado no meio da
+       palavra e é só isso. Um serviço com 11 telas (existe um) piora na mesma
+       proporção. É o mesmo problema da barra de apps, um nível abaixo — e a
+       resposta não pode ser «aba», porque o contrato não tem aba. -->
   <nav class="menus-do-servico">
     <button class="atual">Contas</button><button>Saldo</button>
     <button>Extrato</button><button>Cartões</button>
@@ -134,21 +146,43 @@ body { margin:0; background:var(--bg); color:var(--text); font:15px/1.5 var(--fo
        antes de desenhar: `viewBox` fixo com `width:100%` escalaria o TEXTO junto,
        e num celular de 320px o rótulo de 10,5px viraria 5px. -->
   <div class="cartao">
-    <h4>saldo por mês</h4>
-    <svg viewBox="0 0 340 120" width="100%" height="120" role="img"
-         aria-label="saldo por mês: janeiro 2.100, fevereiro 2.640, março 1.980, abril 3.120, maio 3.348, junho 3.347 reais">
+    <h4>entrou e saiu, por mês</h4>
+    <p class="legenda"><span class="chave" data-papel="grafico"></span>entrou
+      <span class="chave nao" data-papel="grafico"></span>saiu</p>
+    <svg viewBox="0 0 340 124" width="100%" height="124" role="img"
+         aria-label="entrou e saiu por mês, em reais: janeiro entrou 2.100 saiu 1.580; fevereiro entrou 2.640 saiu 1.880; março entrou 1.980 saiu 1.720; abril entrou 3.120 saiu 1.960; maio entrou 3.348 saiu 1.800; junho entrou 3.260 saiu 2.040">
       <line x1="34" x2="336" y1="8" y2="8" stroke="var(--line)" stroke-width="1" data-papel="ornamento"/>
       <line x1="34" x2="336" y1="56" y2="56" stroke="var(--line)" stroke-width="1" data-papel="ornamento"/>
       <line x1="34" x2="336" y1="104" y2="104" stroke="var(--line-forte)" stroke-width="1" data-papel="ornamento"/>
       <text x="28" y="11.5" text-anchor="end" font-size="10.5" fill="var(--muted)">4 mil</text>
       <text x="28" y="59.5" text-anchor="end" font-size="10.5" fill="var(--muted)">2 mil</text>
       <text x="28" y="107.5" text-anchor="end" font-size="10.5" fill="var(--muted)">0</text>
-      <rect x="44"  y="54"  width="34" height="50" fill="var(--accent)" data-papel="grafico"/>
-      <rect x="94"  y="41"  width="34" height="63" fill="var(--accent)" data-papel="grafico"/>
-      <rect x="144" y="57"  width="34" height="47" fill="var(--accent)" data-papel="grafico"/>
-      <rect x="194" y="29"  width="34" height="75" fill="var(--accent)" data-papel="grafico"/>
-      <rect x="244" y="24"  width="34" height="80" fill="var(--ok)" data-papel="grafico"/>
-      <rect x="294" y="24"  width="34" height="80" fill="var(--fagulha)" data-papel="grafico"/>
+      <!-- ⛔ DUAS séries, e cada uma com UMA cor. A primeira versão desta tela
+           pintava a última barra de verde e a penúltima de âmbar dentro da MESMA
+           série, só para exercitar três cores no verificador — e isso mente
+           sobre o contrato: a cor é da SÉRIE, não da barra. Uma barra de cor
+           diferente no meio de uma série lê como «este mês foi especial», que é
+           informação que ninguém declarou. -->
+      <rect x="44"  y="54"  width="16" height="50" fill="var(--ok)" data-papel="grafico"/>
+      <rect x="62"  y="66"  width="16" height="38" fill="var(--danger)" data-papel="grafico"/>
+      <rect x="94"  y="41"  width="16" height="63" fill="var(--ok)" data-papel="grafico"/>
+      <rect x="112" y="59"  width="16" height="45" fill="var(--danger)" data-papel="grafico"/>
+      <rect x="144" y="57"  width="16" height="47" fill="var(--ok)" data-papel="grafico"/>
+      <rect x="162" y="63"  width="16" height="41" fill="var(--danger)" data-papel="grafico"/>
+      <rect x="194" y="29"  width="16" height="75" fill="var(--ok)" data-papel="grafico"/>
+      <rect x="212" y="57"  width="16" height="47" fill="var(--danger)" data-papel="grafico"/>
+      <rect x="244" y="24"  width="16" height="80" fill="var(--ok)" data-papel="grafico"/>
+      <rect x="262" y="61"  width="16" height="43" fill="var(--danger)" data-papel="grafico"/>
+      <rect x="294" y="26"  width="16" height="78" fill="var(--ok)" data-papel="grafico"/>
+      <rect x="312" y="55"  width="16" height="49" fill="var(--danger)" data-papel="grafico"/>
+      <!-- ⚠️ Faltavam os rótulos do eixo: um gráfico com seis pares de barras e
+           nenhum mês é uma forma bonita que não diz de quando. Achado olhando. -->
+      <text x="61"  y="118" text-anchor="middle" font-size="10.5" fill="var(--muted)">jan</text>
+      <text x="111" y="118" text-anchor="middle" font-size="10.5" fill="var(--muted)">fev</text>
+      <text x="161" y="118" text-anchor="middle" font-size="10.5" fill="var(--muted)">mar</text>
+      <text x="211" y="118" text-anchor="middle" font-size="10.5" fill="var(--muted)">abr</text>
+      <text x="261" y="118" text-anchor="middle" font-size="10.5" fill="var(--muted)">mai</text>
+      <text x="311" y="118" text-anchor="middle" font-size="10.5" fill="var(--muted)">jun</text>
     </svg>
   </div>
 

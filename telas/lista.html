@@ -75,6 +75,10 @@ h3.urgente { color:var(--danger) }
 .linkish { background:none; border:0; padding:0; font:inherit; font-size:var(--t-mini);
   color:var(--accent); cursor:pointer; text-decoration:underline }
 .linkish.feito { color:var(--ok-texto) }
+/* ⛔⛔ **E o `.linkish` é a AÇÃO de cada linha, com 18px de altura.** Ele passa
+   folgado no contraste (9,27:1) e reprova no ALVO — as duas réguas do
+   repositório discordando sobre o mesmo elemento, que é exatamente por que os
+   dois verificadores são arquivos separados. Ver `verificar/alvo.mjs`. */
 /* ── os três estados, como estão no produto hoje ── */
 .estados { margin-top:38px; border-top:1px solid var(--line); padding-top:18px }
 .estados h3 { margin-top:18px }
@@ -89,7 +93,7 @@ p.hint { margin:0; font-size:12.5px; color:var(--muted); line-height:1.5 }
 <div class="painel">
   <div class="painel-topo">
     <h2>Tarefas</h2>
-    <span class="fato-acao"><button class="linkish">mostrar as fechadas</button></span>
+    <span class="fato-acao"><button class="linkish" data-reprova-alvo="27x18 a 123x18 — abaixo do piso AA de 24x24 (SC 2.5.8) e MUITO abaixo da regua de 44 · defeito do PRODUTO: as acoes por linha da lista mais densa do app sao .linkish de 12px com padding 0">mostrar as fechadas</button></span>
   </div>
   <p class="sub">O que ele prometeu retomar com você. Quem escreve aqui é o
     worker, não a conversa.</p>
@@ -106,30 +110,30 @@ p.hint { margin:0; font-size:12.5px; color:var(--muted); line-height:1.5 }
     <li><div class="fato-texto">Ligar para a oficina sobre o orçamento do Gol
         <span class="tag">retomar</span>
         <div class="linha-meta">prometido em 28 de maio · era para 2 de junho</div></div>
-      <span class="fato-acao"><button class="linkish feito">feito</button>
-        <button class="linkish">adiar</button></span></li>
+      <span class="fato-acao"><button class="linkish feito" data-reprova-alvo="27x18 a 123x18 — abaixo do piso AA de 24x24 (SC 2.5.8) e MUITO abaixo da regua de 44 · defeito do PRODUTO: as acoes por linha da lista mais densa do app sao .linkish de 12px com padding 0">feito</button>
+        <button class="linkish" data-reprova-alvo="27x18 a 123x18 — abaixo do piso AA de 24x24 (SC 2.5.8) e MUITO abaixo da regua de 44 · defeito do PRODUTO: as acoes por linha da lista mais densa do app sao .linkish de 12px com padding 0">adiar</button></span></li>
     <li><div class="fato-texto">Mandar as notas de maio para o contador
         <span class="tag">documento</span>
         <div class="linha-meta">prometido em 30 de maio · era para 5 de junho</div></div>
-      <span class="fato-acao"><button class="linkish feito">feito</button>
-        <button class="linkish">adiar</button></span></li>
+      <span class="fato-acao"><button class="linkish feito" data-reprova-alvo="27x18 a 123x18 — abaixo do piso AA de 24x24 (SC 2.5.8) e MUITO abaixo da regua de 44 · defeito do PRODUTO: as acoes por linha da lista mais densa do app sao .linkish de 12px com padding 0">feito</button>
+        <button class="linkish" data-reprova-alvo="27x18 a 123x18 — abaixo do piso AA de 24x24 (SC 2.5.8) e MUITO abaixo da regua de 44 · defeito do PRODUTO: as acoes por linha da lista mais densa do app sao .linkish de 12px com padding 0">adiar</button></span></li>
   </ul>
 
   <h3>esta semana</h3>
   <ul class="fatos">
     <li><div class="fato-texto">Confirmar com a Joana o bolo de sábado
         <div class="linha-meta">prometido ontem · para 8 de junho</div></div>
-      <span class="fato-acao"><button class="linkish feito">feito</button>
-        <button class="linkish">adiar</button></span></li>
+      <span class="fato-acao"><button class="linkish feito" data-reprova-alvo="27x18 a 123x18 — abaixo do piso AA de 24x24 (SC 2.5.8) e MUITO abaixo da regua de 44 · defeito do PRODUTO: as acoes por linha da lista mais densa do app sao .linkish de 12px com padding 0">feito</button>
+        <button class="linkish" data-reprova-alvo="27x18 a 123x18 — abaixo do piso AA de 24x24 (SC 2.5.8) e MUITO abaixo da regua de 44 · defeito do PRODUTO: as acoes por linha da lista mais densa do app sao .linkish de 12px com padding 0">adiar</button></span></li>
     <li><div class="fato-texto">Ver se o consentimento do banco vence este mês
         <span class="tag">financeiro</span>
         <div class="linha-meta">prometido há 3 dias · para 9 de junho</div></div>
-      <span class="fato-acao"><button class="linkish feito">feito</button>
-        <button class="linkish">adiar</button></span></li>
+      <span class="fato-acao"><button class="linkish feito" data-reprova-alvo="27x18 a 123x18 — abaixo do piso AA de 24x24 (SC 2.5.8) e MUITO abaixo da regua de 44 · defeito do PRODUTO: as acoes por linha da lista mais densa do app sao .linkish de 12px com padding 0">feito</button>
+        <button class="linkish" data-reprova-alvo="27x18 a 123x18 — abaixo do piso AA de 24x24 (SC 2.5.8) e MUITO abaixo da regua de 44 · defeito do PRODUTO: as acoes por linha da lista mais densa do app sao .linkish de 12px com padding 0">adiar</button></span></li>
     <li><div class="fato-texto">Responder o recado da Padaria Aurora
         <div class="linha-meta">prometido hoje · sem prazo</div></div>
-      <span class="fato-acao"><button class="linkish feito">feito</button>
-        <button class="linkish">adiar</button></span></li>
+      <span class="fato-acao"><button class="linkish feito" data-reprova-alvo="27x18 a 123x18 — abaixo do piso AA de 24x24 (SC 2.5.8) e MUITO abaixo da regua de 44 · defeito do PRODUTO: as acoes por linha da lista mais densa do app sao .linkish de 12px com padding 0">feito</button>
+        <button class="linkish" data-reprova-alvo="27x18 a 123x18 — abaixo do piso AA de 24x24 (SC 2.5.8) e MUITO abaixo da regua de 44 · defeito do PRODUTO: as acoes por linha da lista mais densa do app sao .linkish de 12px com padding 0">adiar</button></span></li>
   </ul>
 
   <h3>fechadas</h3>
@@ -139,7 +143,7 @@ p.hint { margin:0; font-size:12.5px; color:var(--muted); line-height:1.5 }
     <li><div class="fato-texto"><span class="riscado">Comprar a capa do banco
         traseiro</span>
         <div class="linha-meta">fechada em 1 de junho</div></div>
-      <span class="fato-acao"><button class="linkish">reabrir</button></span></li>
+      <span class="fato-acao"><button class="linkish" data-reprova-alvo="27x18 a 123x18 — abaixo do piso AA de 24x24 (SC 2.5.8) e MUITO abaixo da regua de 44 · defeito do PRODUTO: as acoes por linha da lista mais densa do app sao .linkish de 12px com padding 0">reabrir</button></span></li>
   </ul>
 
   <section class="estados">

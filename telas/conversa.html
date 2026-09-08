@@ -81,7 +81,7 @@ header b { color:var(--accent); font-size:1.05rem }
     <div class="msg eu"><div class="body"><p style="margin:0">comprei uma bike usada bem barata, mas a corrente parece bem gasta</p></div><span class="hora">21:24</span></div>
     <div class="msg ele"><div class="body"><p style="margin:0">Boa compra. Corrente gasta come a coroa se rodar muito assim — vale trocar antes de pegar estrada.</p></div><span class="hora">21:24</span><span class="modelo">qwen3.5</span></div>
     <div class="msg eu"><div class="body voz">
-      <button class="tocar" aria-label="Tocar">&#9654;</button>
+      <button class="tocar" aria-label="Tocar" data-reprova-foco="o Firefox tira a cor do anel de foco do color do elemento, e aqui o color e --bg porque o texto fica DENTRO do preenchimento de acento - mas o anel e pintado FORA dele, sobre --in-bg. 1,45:1 contra piso 3,0 (2.4.11). Defeito do PRODUTO: falta um token de anel de foco, entao ele herda uma cor escolhida para outro papel">&#9654;</button>
       <span class="trilha" data-papel="grafico"></span>
       <span class="dur">0:07</span></div><span class="hora">16:37</span></div>
     <div class="msg eu"><div class="body">
@@ -90,7 +90,7 @@ header b { color:var(--accent); font-size:1.05rem }
   </div>
   <div class="compor">
     <input class="campo" placeholder="Escreva uma mensagem…">
-    <button class="mic" aria-label="Gravar áudio">&#127908;</button>
+    <button class="mic" aria-label="Gravar áudio" data-reprova-foco="o Firefox tira a cor do anel de foco do color do elemento, e aqui o color e --bg porque o texto fica DENTRO do preenchimento de acento - mas o anel e pintado FORA dele, sobre --panel. 1,07:1 contra piso 3,0 (2.4.11). Defeito do PRODUTO: falta um token de anel de foco, entao ele herda uma cor escolhida para outro papel">&#127908;</button>
   </div>
 </div>
 </body></html>

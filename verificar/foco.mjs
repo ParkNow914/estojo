@@ -187,13 +187,25 @@ for (const arq of arquivos) {
   for (const a of achados) {
     const nome = a.alvo.padEnd(26);
     const semNada = !a.mudou.length;
+    const mensuravel = a.outlineCor && a.outlineLarg > 0;
+    const r = mensuravel ? razao(a.outlineCor, a.fundo) : null;
 
-    if (a.reprova && !semNada) { falhas++;
-      console.log(`  ⛔ ${nome} declara reprova conhecida e TEM indicador — apague a declaração`);
-      continue; }
-    if (a.reprova) { conhecidas++;
-      console.log(`  ⚠️ ${nome} ${a.reprova}`);
-      continue; }
+    // ⛔⛔ **O veredito vem ANTES da declaração, e as duas réguas contam.**
+    // A primeira versão perguntava só «tem indicador?» para decidir se um
+    // perdão tinha ficado velho — e aí um botão cujo anel EXISTE e reprova no
+    // contraste era acusado de ter declaração sobrando. O CI no Firefox pegou:
+    // dois botões declarados por 1,07 e 1,45 vinham como «apague a declaração»
+    // e derrubavam o job. Perdão só está velho quando o elemento passa nas
+    // DUAS: tem indicador e ele é perceptível.
+    const passa = !semNada && (!mensuravel || r >= PISO);
+
+    if (a.reprova) {
+      if (passa) { falhas++;
+        console.log(`  ⛔ ${nome} declara reprova conhecida e PASSA — apague a declaração`);
+      } else { conhecidas++;
+        console.log(`  ⚠️ ${nome} ${a.reprova}`); }
+      continue;
+    }
 
     if (a.desligado) { falhas++; desligados++;
       console.log(`  ⛔ ${nome} ${a.texto} — outline desligado e nada no lugar (2.4.7)`);
@@ -202,13 +214,10 @@ for (const arq of arquivos) {
       console.log(`  ⛔ ${nome} ${a.texto} — foco não muda pixel nenhum (2.4.7)`);
       continue; }
 
-    // Mudou. Se a mudança foi o outline, ele é mensurável contra o fundo.
-    if (a.outlineCor && a.outlineLarg > 0) {
-      const r = razao(a.outlineCor, a.fundo);
-      const ok = r >= PISO;
-      if (!ok) falhas++;
-      console.log(`  ${ok ? "·" : "⛔"} ${nome} outline ${a.outlineLarg}px  ${r.toFixed(2)}:1 ` +
-                  `${ok ? "" : `— abaixo de ${PISO.toFixed(1)} (2.4.11)`}`);
+    if (mensuravel) {
+      if (r < PISO) falhas++;
+      console.log(`  ${r >= PISO ? "·" : "⛔"} ${nome} outline ${a.outlineLarg}px  ${r.toFixed(2)}:1 ` +
+                  `${r >= PISO ? "" : `— abaixo de ${PISO.toFixed(1)} (2.4.11)`}`);
       continue;
     }
     // ⚠️ Mudou por sombra, borda ou fundo. Dizer o QUE mudou é honesto;

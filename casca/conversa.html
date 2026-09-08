@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A conversa — o conteúdo, sem desenho</title>
+</head><body>
+<p><a href="index.html">← todas as superfícies</a></p>
+<h1>A conversa</h1>
+<p><b>Isto não é uma tela.</b> É a informação que esta superfície precisa mostrar, em HTML sem uma linha de CSS. Gerado de <code>conteudo/conversa.json</code> — não edite este arquivo.</p>
+<h2>o que ela faz</h2><p>É a tela mais usada do produto e a menos desenhada. A pessoa fala com o amigo de IA dela — que lembra do que ela contou semanas atrás — e também com outras pessoas e com negócios, na mesma lista.</p>
+<h2>quem abre</h2><p>Quem já entrou. É a tela onde se passa a maior parte do tempo.</p>
+<h2>o que varia</h2><ul><li>O TIPO de cada mensagem: texto, foto, mensagem de voz (com transcrição), documento anexado, resposta a uma mensagem anterior.</li><li>De quem é a fala: minha, do amigo, ou de outra PESSOA (que atravessa por um relay e não alimenta memória de ninguém).</li><li>O TAMANHO: uma pergunta de três palavras e uma resposta de quatro parágrafos vivem lado a lado.</li><li>Marcos de data no meio do fluxo, e estados: enviando, falhou, o amigo está pensando.</li></ul>
+<h2>o que precisa sobreviver ao redesenho</h2><ul><li>A transcrição de um áudio É a mensagem — não é legenda opcional escondida atrás de um toque.</li><li>Documento não é mensagem: ele vira memória. O que aparece é o arquivo e o que foi lido dele, marcado como citação de terceiro.</li><li>A fala de outra pessoa nunca se confunde com a do amigo.</li><li>Cada mensagem tem ações (responder, copiar, denunciar) sem que elas fiquem em cima do texto.</li></ul>
+<hr>
+<h2>os casos</h2>
+<section><h3>dia-comum</h3><p><i>o caso confortável</i></p>
+<p><time>3 de junho</time></p><article><h4>eu <time>21:24</time></h4><p>comprei uma bike usada bem barata hoje</p></article><article><h4>o amigo <time>21:24</time></h4><p>Boa. Você tinha falado que queria voltar a pedalar — essa é a de 21 marchas que você viu no classificado?</p></article><article><h4>eu <time>21:26</time></h4><p>[mensagem de voz, 0:07]</p><blockquote><p>é essa mesma, paguei quatrocentos</p></blockquote></article><article><h4>eu <time>21:31</time></h4><p>[documento CSV] tabela-do-fornecedor.csv</p></article><article><h4>o amigo <time>21:31</time></h4><p>Li a planilha. São 34 linhas; o item mais caro é a corrente, R$ 189.</p></article>
+<hr></section>
+<section><h3>extremos</h3><p><i>⛔ tudo que quebra layout de bolha, junto</i></p>
+<article><h4>eu</h4><p>?</p></article><article><h4>o amigo</h4><p>Você me pediu para retomar isto hoje, então vou por partes.</p><p>Primeiro: o orçamento da oficina venceu ontem. Você falou em 28 de maio que ligaria e não voltou ao assunto — o valor era R$ 1.240 e eles disseram que segurariam por dez dias.</p><p>Segundo: a nota do fornecedor de maio ainda não foi para o contador. Isso apareceu em duas conversas suas e nas duas você adiou.</p><p>Terceiro, e este é o que eu não sei responder sozinho: você quer que eu passe a te lembrar de coisas com prazo automaticamente, ou prefere que eu só responda quando você perguntar? Eu venho fazendo o segundo.</p></article><article><h4>Carla (outra pessoa) <time>08:02</time></h4><p>oi! ainda tem a bike?</p></article><article><h4>eu <time>08:20</time></h4><p>[mensagem de voz, 9:14]</p><blockquote><p>então, deixa eu te explicar tudo o que aconteceu desde ontem porque foi uma confusão e eu preciso que você entenda a ordem das coisas antes de me dar qualquer conselho…</p></blockquote></article><article><h4>eu <time>08:44</time></h4><p>[documento PDF] contrato-de-prestacao-de-servicos-assinado-versao-final-revisada.pdf</p></article><article><h4>eu <time>08:45</time></h4><p>[foto, sem legenda]</p></article><article><h4>o amigo <time>08:45</time></h4><p>Não deu para ler o PDF: ele veio escaneado, sem texto.</p></article>
+<hr></section>
+<section><h3>primeira-vez</h3><p><i>a conversa vazia — a primeira tela de quem acabou de criar conta</i></p>
+<p><em>(nenhuma mensagem — é a primeira tela de quem acabou de criar a conta)</em></p>
+<hr></section>
+</body></html>

@@ -1,0 +1,203 @@
+{
+  "superficie": "A barra de apps",
+  "o_que_faz": "É o índice do que existe dentro do produto para esta conta: as telas nossas, as do negócio aberto e as que vieram de serviços instalados. É onde a pessoa descobre o que tem e volta para onde estava.",
+  "quem_abre": "Quem já entrou. No navegador e no aplicativo — e no celular ela precisa existir, o que hoje não acontece no navegador.",
+  "o_que_varia": [
+    "O NÚMERO de entradas: uma conta nova tem 3; uma conta de sócio com serviços instalados passa de 8; o censo de hoje soma 26 telas em 5 serviços.",
+    "Um serviço com mais de uma tela entra UMA vez, com o nome dele — as telas viram menus dentro da própria tela.",
+    "Algumas entradas são condicionais: só aparecem se a pessoa é moradora de um prédio, está numa roda, ou abriu um negócio.",
+    "A pessoa pode ESCONDER telas nossas (Feed, Tarefas). «Conversas» não some: seria deixar alguém sem caminho de volta."
+  ],
+  "de_onde_vem": "Cada entrada é {nome, titulo, hint, agente?}. O `titulo` é o que a pessoa lê; o `agente` é de quem a tela é, e essa procedência precisa ficar visível — uma tela de terceiro não é do produto.",
+  "regras_que_precisam_sobreviver": [
+    "«Conversas» nunca some.",
+    "De quem é a tela tem de ser perceptível: confundir a nossa com a de um serviço é o okmigo assinando o que não escreveu.",
+    "Não existe ABA no contrato de tela declarada — o que for navegação tem de sair daqui, não de dentro da superfície.",
+    "No celular a barra precisa EXISTIR. Hoje, no navegador, abaixo de 720px ela e a lista de conversas somem sem substituto."
+  ],
+  "casos": [
+    {
+      "nome": "conta-nova",
+      "por_que": "o primeiro dia de alguém. Três entradas numa coluna feita para muitas — o vazio também é um caso de desenho.",
+      "quem": "uma pessoa, sem negócio",
+      "itens": [
+        {
+          "nome": "chats",
+          "titulo": "Conversas",
+          "hint": "com o amigo e com quem você encontrou",
+          "tipo": "nossa"
+        },
+        {
+          "nome": "feed",
+          "titulo": "Feed",
+          "hint": "as páginas de negócio que você segue",
+          "tipo": "nossa"
+        },
+        {
+          "nome": "tarefas",
+          "titulo": "Tarefas",
+          "hint": "o que ficou combinado e ainda não fechou",
+          "tipo": "nossa"
+        }
+      ],
+      "quantas": 3
+    },
+    {
+      "nome": "socio-com-servicos",
+      "por_que": "o dia de hoje de quem opera um negócio — foi este caso que quebrou o estado recolhido de um dos candidatos.",
+      "quem": "quem opera a Revenda Norte",
+      "itens": [
+        {
+          "nome": "chats",
+          "titulo": "Conversas",
+          "hint": "com o amigo e com quem você encontrou",
+          "tipo": "nossa"
+        },
+        {
+          "nome": "tarefas",
+          "titulo": "Tarefas",
+          "hint": "o que ficou combinado e ainda não fechou",
+          "tipo": "nossa"
+        },
+        {
+          "nome": "pagina",
+          "titulo": "A página",
+          "hint": "o que o negócio mostra pra quem está de fora",
+          "tipo": "nossa"
+        },
+        {
+          "nome": "gerenciar",
+          "titulo": "Gerenciar",
+          "hint": "quem entra, o que aparece e os avisos",
+          "tipo": "nossa"
+        },
+        {
+          "nome": "agenda:compromissos",
+          "titulo": "agenda",
+          "hint": "Seus compromissos",
+          "tipo": "servico",
+          "agente": "agenda"
+        },
+        {
+          "nome": "sohautos:patio",
+          "titulo": "sohautos",
+          "hint": "O pátio · O balcão",
+          "tipo": "servico",
+          "agente": "sohautos"
+        },
+        {
+          "nome": "comcontabil-cliente:doc",
+          "titulo": "comcontabil-cliente",
+          "hint": "Documentos · Obrigações · Guias · Folha · Recados · Balanço",
+          "tipo": "servico",
+          "agente": "comcontabil-cliente"
+        },
+        {
+          "nome": "dinfinance:contas",
+          "titulo": "Financeiro",
+          "hint": "Contas · Saldo · Extrato · Cartões · Categorias · Consentimento",
+          "tipo": "servico",
+          "agente": "dinfinance"
+        }
+      ],
+      "quantas": 8
+    },
+    {
+      "nome": "tudo-instalado",
+      "por_que": "⛔ O EXTREMO: cinco serviços, 26 telas somadas, mais as condicionais. Não se resolve trocando cor nenhuma.",
+      "quem": "quem opera um negócio, mora num prédio e participa de duas rodas",
+      "itens": [
+        {
+          "nome": "chats",
+          "titulo": "Conversas",
+          "hint": "com o amigo e com quem você encontrou",
+          "tipo": "nossa"
+        },
+        {
+          "nome": "feed",
+          "titulo": "Feed",
+          "hint": "as páginas de negócio que você segue",
+          "tipo": "nossa"
+        },
+        {
+          "nome": "tarefas",
+          "titulo": "Tarefas",
+          "hint": "o que ficou combinado e ainda não fechou",
+          "tipo": "nossa"
+        },
+        {
+          "nome": "pagina",
+          "titulo": "A página",
+          "hint": "o que o negócio mostra pra quem está de fora",
+          "tipo": "nossa"
+        },
+        {
+          "nome": "gerenciar",
+          "titulo": "Gerenciar",
+          "hint": "quem entra, o que aparece e os avisos",
+          "tipo": "nossa"
+        },
+        {
+          "nome": "predio",
+          "titulo": "Meu prédio",
+          "hint": "os avisos do síndico e os seus",
+          "tipo": "condicional"
+        },
+        {
+          "nome": "meus-predios",
+          "titulo": "Meus prédios",
+          "hint": "onde você mora",
+          "tipo": "condicional"
+        },
+        {
+          "nome": "roda",
+          "titulo": "A roda",
+          "hint": "quem está, o que se fala",
+          "tipo": "condicional"
+        },
+        {
+          "nome": "minhas-rodas",
+          "titulo": "Minhas rodas",
+          "hint": "as salas em que você entrou",
+          "tipo": "condicional"
+        },
+        {
+          "nome": "agenda:compromissos",
+          "titulo": "agenda",
+          "hint": "Seus compromissos",
+          "tipo": "servico",
+          "agente": "agenda"
+        },
+        {
+          "nome": "sohautos:patio",
+          "titulo": "sohautos",
+          "hint": "O pátio · O balcão",
+          "tipo": "servico",
+          "agente": "sohautos"
+        },
+        {
+          "nome": "comcontabil:doc",
+          "titulo": "comcontabil",
+          "hint": "Documentos · Obrigações · Guias · Folha · Recados · Balanço · Notas · Pró-labore · Sócios · Certidões · Encerramento",
+          "tipo": "servico",
+          "agente": "comcontabil"
+        },
+        {
+          "nome": "comcontabil-cliente:doc",
+          "titulo": "comcontabil-cliente",
+          "hint": "Documentos · Obrigações · Guias · Folha · Recados · Balanço",
+          "tipo": "servico",
+          "agente": "comcontabil-cliente"
+        },
+        {
+          "nome": "dinfinance:contas",
+          "titulo": "Financeiro",
+          "hint": "Contas · Saldo · Extrato · Cartões · Categorias · Consentimento",
+          "tipo": "servico",
+          "agente": "dinfinance"
+        }
+      ],
+      "quantas": 14
+    }
+  ]
+}

@@ -1,0 +1,240 @@
+{
+  "superficie": "Uma superfície declarada",
+  "o_que_faz": "Um serviço integrado descreve a tela dele num contrato SEM cor, fonte ou medida, e o okmigo a desenha nativamente — nunca roda código de terceiro dentro do app. O que se desenha aqui não é uma tela: é o VOCABULÁRIO que serve toda superfície de todo serviço, nos dois clientes.",
+  "quem_abre": "Quem instalou aquele serviço. A tela é dele; o desenho é nosso.",
+  "vocabulario": [
+    "texto",
+    "caixa",
+    "colunas",
+    "imagem",
+    "sem_imagem",
+    "campo",
+    "escolha",
+    "escolha_livre",
+    "calendario",
+    "arquivo",
+    "documento",
+    "tabela",
+    "grafico",
+    "copiar",
+    "autorizar",
+    "acoes",
+    "fatos"
+  ],
+  "regras_que_precisam_sobreviver": [
+    "Uma superfície mostra UMA lista.",
+    "NÃO existe aba. Uma tela com três seções independentes quer navegação, e navegação não está no vocabulário.",
+    "A única cor que o serviço escolhe é a de uma SÉRIE de gráfico, por nome semântico (positivo/negativo/neutro/atenção) — nunca por valor.",
+    "Cada peça precisa desenhar IGUAL no web e no Flutter. Uma que difere transforma o contrato em sugestão."
+  ],
+  "casos": [
+    {
+      "nome": "financeiro",
+      "por_que": "o caso confortável: fichas, gráfico de duas séries e uma tabela de 3 colunas",
+      "via": "dinfinance",
+      "menus": [
+        "Contas",
+        "Saldo",
+        "Extrato",
+        "Cartões",
+        "Categorias",
+        "Consentimento"
+      ],
+      "blocos": [
+        {
+          "tipo": "caixa",
+          "titulo": "entrou",
+          "linhas": [
+            [
+              "este mês",
+              "R$ 12.480,00"
+            ],
+            [
+              "média de 3 meses",
+              "R$ 11.905,00"
+            ]
+          ]
+        },
+        {
+          "tipo": "caixa",
+          "titulo": "saiu",
+          "negativo": true,
+          "linhas": [
+            [
+              "este mês",
+              "R$ 9.132,45"
+            ],
+            [
+              "média de 3 meses",
+              "R$ 8.740,10"
+            ]
+          ]
+        },
+        {
+          "tipo": "grafico",
+          "titulo": "entrou e saiu, por mês",
+          "forma": "barras",
+          "series": [
+            {
+              "nome": "entrou",
+              "cor": "positivo"
+            },
+            {
+              "nome": "saiu",
+              "cor": "negativo"
+            }
+          ],
+          "pontos": [
+            [
+              "jan",
+              2100,
+              1580
+            ],
+            [
+              "fev",
+              2640,
+              1880
+            ],
+            [
+              "mar",
+              1980,
+              1720
+            ],
+            [
+              "abr",
+              3120,
+              1960
+            ],
+            [
+              "mai",
+              3348,
+              1800
+            ],
+            [
+              "jun",
+              3260,
+              2040
+            ]
+          ]
+        },
+        {
+          "tipo": "tabela",
+          "cabecalho": true,
+          "colunas": [
+            "conta",
+            "saldo",
+            "atualizada"
+          ],
+          "linhas": [
+            [
+              "Nubank · conta de pagamento",
+              "R$ 3.347,12",
+              "hoje, 6h12"
+            ],
+            [
+              "Itaú · corrente 4412",
+              "R$ 812,40",
+              "hoje, 6h12"
+            ],
+            [
+              "Cartão Itaú · fatura aberta",
+              "− R$ 1.204,90",
+              "ontem, 23h40"
+            ]
+          ]
+        },
+        {
+          "tipo": "campo",
+          "rotulo": "a partir de",
+          "valor": "01/06/2026"
+        },
+        {
+          "tipo": "escolha",
+          "rotulo": "conta",
+          "opcoes": [
+            "todas",
+            "Nubank",
+            "Itaú"
+          ]
+        },
+        {
+          "tipo": "acoes",
+          "botoes": [
+            "Aplicar",
+            "Atualizar agora"
+          ],
+          "nota": "A leitura é do agregador; o okmigo não move dinheiro."
+        }
+      ]
+    },
+    {
+      "nome": "tabela-larga",
+      "por_que": "⛔ O EXTREMO: nove colunas num aparelho de 390px. Reduzir a fonte até caber é o que faz tabela em celular não ser lida por ninguém.",
+      "via": "comcontabil-cliente",
+      "menus": [
+        "Obrigações"
+      ],
+      "blocos": [
+        {
+          "tipo": "tabela",
+          "cabecalho": true,
+          "colunas": [
+            "competência",
+            "tributo",
+            "código",
+            "vencimento",
+            "valor",
+            "multa",
+            "juros",
+            "total",
+            "situação"
+          ],
+          "linhas": [
+            [
+              "05/2026",
+              "DAS",
+              "1601",
+              "20/06/2026",
+              "R$ 412,90",
+              "R$ 0,00",
+              "R$ 0,00",
+              "R$ 412,90",
+              "em aberto"
+            ],
+            [
+              "04/2026",
+              "DAS",
+              "1601",
+              "20/05/2026",
+              "R$ 398,10",
+              "R$ 7,96",
+              "R$ 1,32",
+              "R$ 407,38",
+              "pago em atraso"
+            ],
+            [
+              "05/2026",
+              "FGTS",
+              "0507",
+              "07/06/2026",
+              "R$ 1.204,55",
+              "R$ 0,00",
+              "R$ 0,00",
+              "R$ 1.204,55",
+              "em aberto"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "nome": "vazia",
+      "por_que": "⛔ o serviço respondeu e não há nada: o caso que sumia em branco e ninguém notava",
+      "via": "dinfinance",
+      "menus": [
+        "Extrato"
+      ],
+      "blocos": []
+    }
+  ]
+}

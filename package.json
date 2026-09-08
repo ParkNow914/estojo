@@ -2,12 +2,13 @@
   "name": "estojo",
   "private": true,
   "type": "module",
-  "description": "O estojo de desenho do okmigo — tokens, telas e o verificador.",
+  "description": "O estojo de desenho do okmigo — o conteúdo das superfícies, e as réguas.",
   "scripts": {
-    "verificar": "node verificar/contraste.mjs telas/*.html && node verificar/alvo.mjs telas/*.html",
-    "contraste": "node verificar/contraste.mjs telas/*.html",
-    "alvo": "node verificar/alvo.mjs telas/*.html",
-    "tokens": "node ferramentas/tokens.mjs"
+    "casca": "node ferramentas/casca.mjs",
+    "tokens": "node ferramentas/tokens.mjs",
+    "verificar": "node verificar/contraste.mjs",
+    "referencia": "node verificar/contraste.mjs referencia/*.html && node verificar/alvo.mjs referencia/*.html",
+    "alvo": "node verificar/alvo.mjs"
   },
   "devDependencies": {
     "playwright": "1.61.1"

@@ -1,0 +1,115 @@
+{
+  "superficie": "A conversa",
+  "o_que_faz": "É a tela mais usada do produto e a menos desenhada. A pessoa fala com o amigo de IA dela — que lembra do que ela contou semanas atrás — e também com outras pessoas e com negócios, na mesma lista.",
+  "quem_abre": "Quem já entrou. É a tela onde se passa a maior parte do tempo.",
+  "o_que_varia": [
+    "O TIPO de cada mensagem: texto, foto, mensagem de voz (com transcrição), documento anexado, resposta a uma mensagem anterior.",
+    "De quem é a fala: minha, do amigo, ou de outra PESSOA (que atravessa por um relay e não alimenta memória de ninguém).",
+    "O TAMANHO: uma pergunta de três palavras e uma resposta de quatro parágrafos vivem lado a lado.",
+    "Marcos de data no meio do fluxo, e estados: enviando, falhou, o amigo está pensando."
+  ],
+  "regras_que_precisam_sobreviver": [
+    "A transcrição de um áudio É a mensagem — não é legenda opcional escondida atrás de um toque.",
+    "Documento não é mensagem: ele vira memória. O que aparece é o arquivo e o que foi lido dele, marcado como citação de terceiro.",
+    "A fala de outra pessoa nunca se confunde com a do amigo.",
+    "Cada mensagem tem ações (responder, copiar, denunciar) sem que elas fiquem em cima do texto."
+  ],
+  "casos": [
+    {
+      "nome": "dia-comum",
+      "por_que": "o caso confortável",
+      "mensagens": [
+        {
+          "tipo": "marco",
+          "texto": "3 de junho"
+        },
+        {
+          "de": "eu",
+          "tipo": "texto",
+          "texto": "comprei uma bike usada bem barata hoje",
+          "hora": "21:24"
+        },
+        {
+          "de": "amigo",
+          "tipo": "texto",
+          "texto": "Boa. Você tinha falado que queria voltar a pedalar — essa é a de 21 marchas que você viu no classificado?",
+          "hora": "21:24"
+        },
+        {
+          "de": "eu",
+          "tipo": "voz",
+          "duracao": "0:07",
+          "transcrito": "é essa mesma, paguei quatrocentos",
+          "hora": "21:26"
+        },
+        {
+          "de": "eu",
+          "tipo": "documento",
+          "arquivo": "tabela-do-fornecedor.csv",
+          "formato": "CSV",
+          "hora": "21:31"
+        },
+        {
+          "de": "amigo",
+          "tipo": "texto",
+          "texto": "Li a planilha. São 34 linhas; o item mais caro é a corrente, R$ 189.",
+          "hora": "21:31"
+        }
+      ]
+    },
+    {
+      "nome": "extremos",
+      "por_que": "⛔ tudo que quebra layout de bolha, junto",
+      "mensagens": [
+        {
+          "de": "eu",
+          "tipo": "texto",
+          "texto": "?"
+        },
+        {
+          "de": "amigo",
+          "tipo": "texto",
+          "texto": "Você me pediu para retomar isto hoje, então vou por partes.\n\nPrimeiro: o orçamento da oficina venceu ontem. Você falou em 28 de maio que ligaria e não voltou ao assunto — o valor era R$ 1.240 e eles disseram que segurariam por dez dias.\n\nSegundo: a nota do fornecedor de maio ainda não foi para o contador. Isso apareceu em duas conversas suas e nas duas você adiou.\n\nTerceiro, e este é o que eu não sei responder sozinho: você quer que eu passe a te lembrar de coisas com prazo automaticamente, ou prefere que eu só responda quando você perguntar? Eu venho fazendo o segundo."
+        },
+        {
+          "de": "pessoa",
+          "nome": "Carla",
+          "tipo": "texto",
+          "texto": "oi! ainda tem a bike?",
+          "hora": "08:02"
+        },
+        {
+          "de": "eu",
+          "tipo": "voz",
+          "duracao": "9:14",
+          "transcrito": "então, deixa eu te explicar tudo o que aconteceu desde ontem porque foi uma confusão e eu preciso que você entenda a ordem das coisas antes de me dar qualquer conselho…",
+          "hora": "08:20"
+        },
+        {
+          "de": "eu",
+          "tipo": "documento",
+          "arquivo": "contrato-de-prestacao-de-servicos-assinado-versao-final-revisada.pdf",
+          "formato": "PDF",
+          "hora": "08:44"
+        },
+        {
+          "de": "eu",
+          "tipo": "foto",
+          "legenda": null,
+          "hora": "08:45"
+        },
+        {
+          "de": "amigo",
+          "tipo": "texto",
+          "texto": "Não deu para ler o PDF: ele veio escaneado, sem texto.",
+          "hora": "08:45"
+        }
+      ]
+    },
+    {
+      "nome": "primeira-vez",
+      "por_que": "a conversa vazia — a primeira tela de quem acabou de criar conta",
+      "mensagens": []
+    }
+  ]
+}

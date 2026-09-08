@@ -1,0 +1,192 @@
+{
+  "superficie": "Tarefas — a lista densa",
+  "o_que_faz": "Mostra o que o amigo prometeu retomar. Quem escreve nesta lista é o worker que lê as conversas, não a pessoa: ela não digita tarefa, ela conversa e a promessa aparece aqui.",
+  "quem_abre": "Quem já entrou, geralmente de passagem — para ver o que venceu.",
+  "o_que_varia": [
+    "O NÚMERO: de zero a algumas dezenas.",
+    "O prazo: vencido, esta semana, sem prazo nenhum.",
+    "O estado: aberta, fechada (que continua visível, de propósito), reaberta.",
+    "A lista tem QUATRO aparências, e três delas nunca foram desenhadas: com conteúdo, vazia, carregando e com erro."
+  ],
+  "regras_que_precisam_sobreviver": [
+    "A fechada NÃO some: se sumisse, a tela mentiria sobre o que ainda existe.",
+    "«Já passou» precisa saltar — é a única informação da tela que pede ação hoje.",
+    "Cada linha tem ações, e hoje elas têm 18px de altura: abaixo do piso de 24×24."
+  ],
+  "casos": [
+    {
+      "nome": "com-conteudo",
+      "por_que": "o caso confortável",
+      "itens": [
+        {
+          "texto": "Ligar para a oficina sobre o orçamento do Gol",
+          "prometido": "28 de maio",
+          "prazo": "2 de junho",
+          "vencida": true,
+          "etiqueta": "retomar"
+        },
+        {
+          "texto": "Mandar as notas de maio para o contador",
+          "prometido": "30 de maio",
+          "prazo": "5 de junho",
+          "vencida": true,
+          "etiqueta": "documento"
+        },
+        {
+          "texto": "Confirmar com a Joana o bolo de sábado",
+          "prometido": "ontem",
+          "prazo": "8 de junho",
+          "vencida": false
+        },
+        {
+          "texto": "Ver se o consentimento do banco vence este mês",
+          "prometido": "há 3 dias",
+          "prazo": "9 de junho",
+          "vencida": false,
+          "etiqueta": "financeiro"
+        },
+        {
+          "texto": "Responder o recado da Padaria Aurora",
+          "prometido": "hoje",
+          "prazo": null,
+          "vencida": false
+        },
+        {
+          "texto": "Comprar a capa do banco traseiro",
+          "prometido": "20 de maio",
+          "prazo": null,
+          "vencida": false,
+          "fechada": "1 de junho"
+        }
+      ]
+    },
+    {
+      "nome": "vazia",
+      "por_que": "⛔ o estado que hoje é um parágrafo solto",
+      "itens": []
+    },
+    {
+      "nome": "so-vencidas",
+      "por_que": "⛔ dezoito vencidas de uma vez — a tela que faz a pessoa desistir de abrir",
+      "itens": [
+        {
+          "texto": "Pendência 1 que venceu e ninguém fechou",
+          "prometido": "maio",
+          "prazo": "2 de junho",
+          "vencida": true
+        },
+        {
+          "texto": "Pendência 2 que venceu e ninguém fechou",
+          "prometido": "maio",
+          "prazo": "2 de junho",
+          "vencida": true
+        },
+        {
+          "texto": "Pendência 3 que venceu e ninguém fechou",
+          "prometido": "maio",
+          "prazo": "2 de junho",
+          "vencida": true
+        },
+        {
+          "texto": "Pendência 4 que venceu e ninguém fechou",
+          "prometido": "maio",
+          "prazo": "2 de junho",
+          "vencida": true
+        },
+        {
+          "texto": "Pendência 5 que venceu e ninguém fechou",
+          "prometido": "maio",
+          "prazo": "2 de junho",
+          "vencida": true
+        },
+        {
+          "texto": "Pendência 6 que venceu e ninguém fechou",
+          "prometido": "maio",
+          "prazo": "2 de junho",
+          "vencida": true
+        },
+        {
+          "texto": "Pendência 7 que venceu e ninguém fechou",
+          "prometido": "maio",
+          "prazo": "2 de junho",
+          "vencida": true
+        },
+        {
+          "texto": "Pendência 8 que venceu e ninguém fechou",
+          "prometido": "maio",
+          "prazo": "2 de junho",
+          "vencida": true
+        },
+        {
+          "texto": "Pendência 9 que venceu e ninguém fechou",
+          "prometido": "maio",
+          "prazo": "2 de junho",
+          "vencida": true
+        },
+        {
+          "texto": "Pendência 10 que venceu e ninguém fechou",
+          "prometido": "maio",
+          "prazo": "2 de junho",
+          "vencida": true
+        },
+        {
+          "texto": "Pendência 11 que venceu e ninguém fechou",
+          "prometido": "maio",
+          "prazo": "2 de junho",
+          "vencida": true
+        },
+        {
+          "texto": "Pendência 12 que venceu e ninguém fechou",
+          "prometido": "maio",
+          "prazo": "2 de junho",
+          "vencida": true
+        },
+        {
+          "texto": "Pendência 13 que venceu e ninguém fechou",
+          "prometido": "maio",
+          "prazo": "2 de junho",
+          "vencida": true
+        },
+        {
+          "texto": "Pendência 14 que venceu e ninguém fechou",
+          "prometido": "maio",
+          "prazo": "2 de junho",
+          "vencida": true
+        },
+        {
+          "texto": "Pendência 15 que venceu e ninguém fechou",
+          "prometido": "maio",
+          "prazo": "2 de junho",
+          "vencida": true
+        },
+        {
+          "texto": "Pendência 16 que venceu e ninguém fechou",
+          "prometido": "maio",
+          "prazo": "2 de junho",
+          "vencida": true
+        },
+        {
+          "texto": "Pendência 17 que venceu e ninguém fechou",
+          "prometido": "maio",
+          "prazo": "2 de junho",
+          "vencida": true
+        },
+        {
+          "texto": "Pendência 18 que venceu e ninguém fechou",
+          "prometido": "maio",
+          "prazo": "2 de junho",
+          "vencida": true
+        }
+      ]
+    },
+    {
+      "nome": "estados",
+      "por_que": "as outras três aparências",
+      "estados": [
+        "carregando",
+        "erro ao carregar",
+        "sem conexão"
+      ]
+    }
+  ]
+}

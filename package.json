@@ -4,10 +4,11 @@
   "type": "module",
   "description": "O estojo de desenho do okmigo — tokens, telas e o verificador.",
   "scripts": {
-    "verificar": "node verificar/contraste.mjs telas/*.html && node verificar/alvo.mjs telas/*.html",
+    "verificar": "node verificar/contraste.mjs telas/*.html && node verificar/alvo.mjs telas/*.html && node verificar/foco.mjs telas/*.html",
     "contraste": "node verificar/contraste.mjs telas/*.html",
     "alvo": "node verificar/alvo.mjs telas/*.html",
-    "tokens": "node ferramentas/tokens.mjs"
+    "tokens": "node ferramentas/tokens.mjs",
+    "foco": "node verificar/foco.mjs telas/*.html"
   },
   "devDependencies": {
     "playwright": "1.61.1"

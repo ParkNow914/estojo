@@ -13,20 +13,27 @@ diga — provavelmente falta uma tela aqui, não um acesso.
     npm i
     npm run verificar
 
-São **dois** verificadores, e eles são separados de propósito:
+São **três** verificadores, e eles são separados de propósito:
 
 | | mede | pisos |
 |---|---|---|
 | `verificar/contraste.mjs` | contraste, **no pixel renderizado** | 4,5 texto e ícone · 3,0 objeto gráfico |
 | `verificar/alvo.mjs` | **tamanho do alvo de toque** | 24×24 (SC 2.5.8, AA) · 44×44 (a régua daqui) |
+| `verificar/foco.mjs` | **o indicador de foco**, andando de Tab | existir (2.4.7, AA) · 3,0 de contraste (2.4.11) |
 
-⭐ **Por que dois arquivos e não um.** O `.linkish` que fecha uma tarefa passa
-folgado no contraste (**9,27:1**) e reprova no alvo (**27×18**). As duas réguas
+⭐ **Por que arquivos separados e não um.** O `.linkish` que fecha uma tarefa
+passa folgado no contraste (**9,27:1**) e reprova no alvo (**27×18**). As réguas
 discordam sobre o mesmo elemento, se consertam em lugares diferentes, e um
-verificador que medisse as duas juntas viraria «o verificador» — quem lê o
+verificador que medisse todas juntas viraria «o verificador» — quem lê o
 relatório deixaria de saber qual régua falou.
 
-Os dois saem com código 1 se algo reprovar. Rode antes de entregar qualquer
+⭐ **E o terceiro mede um estado que os outros dois não alcançam.** Contraste e
+alvo olham a tela parada. O foco só existe enquanto alguém navega pelo teclado:
+não aparece em captura, não está no CSS de repouso, e some de qualquer leitura
+estática. Por isso o `foco.mjs` **aperta Tab** e compara o computado de antes
+com o de depois — indicador de foco não é uma cor, é uma diferença.
+
+Os três saem com código 1 se algo reprovar. Rode antes de entregar qualquer
 coisa.
 
 ## ⭐⭐ A pergunta que este repositório existe para forçar
@@ -85,11 +92,13 @@ Ele diz «não sei» em vez de inventar número, e isso é decisão:
 
 ⛔ **«Não medida» nunca conta como aprovada.**
 
-⚠️ **E o que ele ainda NÃO mede:** foco de teclado, e `::placeholder` —
-pseudo-elemento não entra na varredura do DOM. O `alvo.mjs`, por sua vez, mede a
-CAIXA do elemento e nada além: área ampliada por `::before` invisível, `hit-slop`
-do Flutter e o espaçamento entre alvos vizinhos (que a 2.5.8 perdoa) seguem
-sendo conferidos por olho.
+⚠️ **E o que ele ainda NÃO mede:** `::placeholder` — pseudo-elemento não entra
+na varredura do DOM. ⭐ Hoje ele passa (`--fraco` sobre `--bg` dá **5,29:1**),
+mas passa por sorte e não por medição: nada avisa se o próximo ajuste de
+`--fraco` o derrubar. O `alvo.mjs`, por sua vez, mede a CAIXA do elemento e nada
+além: área ampliada por `::before` invisível, `hit-slop` do Flutter e o
+espaçamento entre alvos vizinhos (que a 2.5.8 perdoa) seguem sendo conferidos
+por olho. Foco de teclado saiu desta lista — virou o `foco.mjs`.
 
 ### ⭐⭐ A válvula: reprova CONHECIDA
 
@@ -102,10 +111,12 @@ ou baixar o piso. A boa é **declarar**:
 ```html
 <input  data-papel="grafico" data-reprova="OMINFRA-000: --line como moldura de controle">
 <button data-reprova-alvo="OMINFRA-000: 27×18, ação por linha da lista">feito</button>
+<div    data-reprova-foco="OMINFRA-000: rolável sem indicador de foco">…</div>
 ```
 
-⛔ **São dois atributos, e não um por descuido:** um perdão de COR não pode calar
-um alvo pequeno. Duas réguas, duas desculpas.
+⛔ **São três atributos, e não um por descuido:** um perdão de COR não pode calar
+um alvo pequeno, e nenhum dos dois pode calar um foco invisível. Três réguas,
+três desculpas.
 
 ⛔ **A trava que impede a válvula de virar vazamento: exceção que PASSA é
 falha.** Consertado o produto, o verificador exige que a declaração saia — senão
@@ -214,6 +225,18 @@ etiqueta (`rgba(127,140,170,.18)`) e a faixa de erro (`color-mix(--danger 14%,
 transparent)`). Compondo à mão os dois passam; mas «passa quando eu componho na
 calculadora» não é o mesmo que «está declarado», e o próximo ajuste de fundo move
 os dois sem aviso.
+
+**6 · Não existe uma regra `:focus` no produto inteiro.** Zero ocorrências nas
+cinco telas. O foco é, em toda parte, o padrão do navegador — o que funciona bem
+onde o navegador tem padrão (as **56 paradas de Tab** medidas passam com folga,
+7,86:1 na página de negócio) e falha onde ele não tem. ⛔ E o lugar onde não tem
+é a superfície de maior alcance: o `.carrossel` de `negocio.html` é um `div` com
+`overflow-x:auto`, e container rolável **vira parada de Tab** para quem precisa
+rolar pelo teclado. O navegador dá o foco e não desenha nada. É 2.4.7, nível AA,
+e está declarado como reprova conhecida. ⚠️ Detalhe que muda o teste: a
+focabilidade depende de o container **de fato** transbordar, então o segundo
+carrossel da mesma página não é parada de Tab em 390px e é em telas largas —
+medir numa largura só não cobre.
 
 ## O que o produto tem que restringe o desenho
 

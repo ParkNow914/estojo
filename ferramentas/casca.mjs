@@ -141,6 +141,7 @@ writeFileSync("casca/index.html",
   `quem a abre, o que varia, e os casos — inclusive os extremos. <b>Sem uma linha de CSS</b>, ` +
   `de propósito: o desenho é o que falta, e é o que estamos pedindo.</p>\n` +
   `<ul>${feitos.map(([k, t, n]) => `<li><a href="${k}.html">${e(t)}</a> — ${n} casos</li>`).join("")}</ul>\n` +
-  `<p>O que existe hoje está em <code>telas/</code>. ⚠️ Aquilo é <b>referência do que temos</b>, ` +
-  `não o alvo — e não é o arquivo para editar.</p>\n</body></html>\n`);
+  `<p>⚠️ Não há tela pronta neste repositório, de propósito. Quer ver como o produto ` +
+  `resolve isto hoje? <b>Pergunte</b> — a gente manda a captura. O que está aqui é o ` +
+  `que precisa ser mostrado, não uma resposta para corrigir.</p>\n</body></html>\n`);
 console.log(`  casca/index.html`.padEnd(42) + `${feitos.length} superfícies\n→ casca/`);

@@ -20,15 +20,33 @@
     "O formulário NASCE DESLIGADO. Página pública não coleta nome e telefone de estranho sem alguém ter pedido, e não há gesto de desfazer para dado que já entrou.",
     "Quem abre não tem conta. Nada pode exigir login para ser lido.",
     "A página entra no buscador: o conteúdo é HTML de verdade, não montado por script.",
-    "Alvo de toque mínimo de 44px — este é o aparelho onde a página é aberta."
+    "Alvo de toque mínimo de 44px — este é o aparelho onde a página é aberta.",
+    "Na faixa tingida o tom de texto mais fraco é TROCADO por um mais forte: um tom afinado até passar contra dois fundos é derrubado por um terceiro.",
+    "O carrossel corta o cartão seguinte de propósito — é o corte que ensina que dá para arrastar. Já mostramos todas as obras de uma vez e não funcionou.",
+    "Em tela estreita o menu de âncoras pode sair, mas o botão de entrar FICA: o que se perde num caso é atalho para conteúdo logo abaixo; no outro é o único caminho para dentro do produto."
   ],
   "casos": [
     {
       "nome": "cheia",
       "por_que": "o caso confortável — é onde todo layout parece bom",
-      "negocio": { "nome": "Padaria Aurora", "handle": "padaria_aurora", "cidade": "Santo André", "ramo": "forno" },
-      "ordem": ["contato", "vitrine", "feitos", "avisos", "entrar"],
-      "contato": { "telefone": "(11) 99999-0000", "endereco": "Rua das Palmeiras, 214 — Santo André", "horario": "Terça a domingo, 6h às 19h" },
+      "negocio": {
+        "nome": "Padaria Aurora",
+        "handle": "padaria_aurora",
+        "cidade": "Santo André",
+        "ramo": "forno"
+      },
+      "ordem": [
+        "contato",
+        "vitrine",
+        "feitos",
+        "avisos",
+        "entrar"
+      ],
+      "contato": {
+        "telefone": "(11) 99999-0000",
+        "endereco": "Rua das Palmeiras, 214 — Santo André",
+        "horario": "Terça a domingo, 6h às 19h"
+      },
       "vitrine": [
         "Pão de fermentação natural, fornada às 7h e às 16h",
         "Bolo de fubá com goiabada — inteiro ou em fatia",
@@ -36,47 +54,135 @@
         "Café coado na hora, para levar"
       ],
       "feitos": [
-        { "texto": "Fornada da manhã", "foto": true },
-        { "texto": "Bolo de fubá inteiro", "foto": true },
-        { "texto": "Salgado para festa — cento de coxinha, risole e enroladinho", "foto": false },
-        { "texto": "Pão doce de feriado", "foto": true },
-        { "texto": "Torta de limão", "foto": true },
-        { "texto": "Café da tarde", "foto": true },
-        { "texto": "Encomenda de aniversário", "foto": true }
+        {
+          "texto": "Fornada da manhã",
+          "foto": true
+        },
+        {
+          "texto": "Bolo de fubá inteiro",
+          "foto": true
+        },
+        {
+          "texto": "Salgado para festa — cento de coxinha, risole e enroladinho",
+          "foto": false
+        },
+        {
+          "texto": "Pão doce de feriado",
+          "foto": true
+        },
+        {
+          "texto": "Torta de limão",
+          "foto": true
+        },
+        {
+          "texto": "Café da tarde",
+          "foto": true
+        },
+        {
+          "texto": "Encomenda de aniversário",
+          "foto": true
+        }
       ],
       "avisos": [
-        { "texto": "Sexta a padaria abre às 6h — tem pão doce saindo do forno mais cedo por causa do feriado.", "quando": "3 de junho", "foto": true },
-        { "texto": "Voltamos com a torta de limão nos fins de semana.", "quando": "28 de maio", "foto": false }
+        {
+          "texto": "Sexta a padaria abre às 6h — tem pão doce saindo do forno mais cedo por causa do feriado.",
+          "quando": "3 de junho",
+          "foto": true
+        },
+        {
+          "texto": "Voltamos com a torta de limão nos fins de semana.",
+          "quando": "28 de maio",
+          "foto": false
+        }
       ]
     },
     {
       "nome": "recem-criada",
       "por_que": "⛔ O EXTREMO QUE MAIS IMPORTA: a dona acabou de criar e ainda não escreveu nada. Esta página existe e é pública. O que ela mostra?",
-      "negocio": { "nome": "Serralheria do Bairro", "handle": "serralheria_do_bairro", "cidade": null, "ramo": "forja" },
-      "ordem": ["contato", "vitrine", "feitos", "avisos", "entrar"],
-      "contato": { "telefone": "(11) 98888-1234", "endereco": null, "horario": null },
-      "vitrine": [], "feitos": [], "avisos": []
+      "negocio": {
+        "nome": "Serralheria do Bairro",
+        "handle": "serralheria_do_bairro",
+        "cidade": null,
+        "ramo": "forja"
+      },
+      "ordem": [
+        "contato",
+        "vitrine",
+        "feitos",
+        "avisos",
+        "entrar"
+      ],
+      "contato": {
+        "telefone": "(11) 98888-1234",
+        "endereco": null,
+        "horario": null
+      },
+      "vitrine": [],
+      "feitos": [],
+      "avisos": []
     },
     {
       "nome": "um-bloco-so",
       "por_que": "a dona desligou tudo menos o contato — é o direito dela, e o desenho tem de aguentar",
-      "negocio": { "nome": "Consultório de Fisioterapia Márcia Nakamura", "handle": "fisio_marcia", "cidade": "São Bernardo do Campo", "ramo": "cuidado" },
-      "ordem": ["contato"],
-      "contato": { "telefone": "(11) 3333-4455", "endereco": "Av. Kennedy, 1502, sala 43", "horario": "Segunda a sexta, 8h às 18h" },
-      "vitrine": [], "feitos": [], "avisos": []
+      "negocio": {
+        "nome": "Consultório de Fisioterapia Márcia Nakamura",
+        "handle": "fisio_marcia",
+        "cidade": "São Bernardo do Campo",
+        "ramo": "cuidado"
+      },
+      "ordem": [
+        "contato"
+      ],
+      "contato": {
+        "telefone": "(11) 3333-4455",
+        "endereco": "Av. Kennedy, 1502, sala 43",
+        "horario": "Segunda a sexta, 8h às 18h"
+      },
+      "vitrine": [],
+      "feitos": [],
+      "avisos": []
     },
     {
       "nome": "avisos-primeiro-com-formulario",
       "por_que": "ordem trocada pela dona e o formulário LIGADO — a combinação que quase ninguém desenha",
-      "negocio": { "nome": "Estúdio Corvo", "handle": "estudio_corvo", "cidade": "Santos", "ramo": "tinta" },
-      "ordem": ["avisos", "vitrine", "formulario", "contato", "entrar"],
-      "contato": { "telefone": "(13) 99777-2211", "endereco": null, "horario": "Com hora marcada" },
-      "vitrine": ["Tatuagem autoral, fechamento de braço", "Cobertura de cicatriz"],
+      "negocio": {
+        "nome": "Estúdio Corvo",
+        "handle": "estudio_corvo",
+        "cidade": "Santos",
+        "ramo": "tinta"
+      },
+      "ordem": [
+        "avisos",
+        "vitrine",
+        "formulario",
+        "contato",
+        "entrar"
+      ],
+      "contato": {
+        "telefone": "(13) 99777-2211",
+        "endereco": null,
+        "horario": "Com hora marcada"
+      },
+      "vitrine": [
+        "Tatuagem autoral, fechamento de braço",
+        "Cobertura de cicatriz"
+      ],
       "feitos": [],
       "avisos": [
-        { "texto": "Agenda de outubro aberta. Mando o orçamento pelo formulário aqui embaixo.", "quando": "12 de setembro", "foto": false }
+        {
+          "texto": "Agenda de outubro aberta. Mando o orçamento pelo formulário aqui embaixo.",
+          "quando": "12 de setembro",
+          "foto": false
+        }
       ],
-      "formulario": { "campos": ["seu nome", "telefone ou e-mail", "o que você precisa"], "onde_cai": "a caixa do negócio dentro do okmigo" }
+      "formulario": {
+        "campos": [
+          "seu nome",
+          "telefone ou e-mail",
+          "o que você precisa"
+        ],
+        "onde_cai": "a caixa do negócio dentro do okmigo"
+      }
     }
   ]
 }

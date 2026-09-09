@@ -11,7 +11,8 @@
   "regras_que_precisam_sobreviver": [
     "A fechada NÃO some: se sumisse, a tela mentiria sobre o que ainda existe.",
     "«Já passou» precisa saltar — é a única informação da tela que pede ação hoje.",
-    "Cada linha tem ações, e hoje elas têm 18px de altura: abaixo do piso de 24×24."
+    "Cada linha tem ações, e hoje elas têm 18px de altura: abaixo do piso de 24×24.",
+    "A ordem não é a de criação: o que venceu vem primeiro, porque é a única coisa da tela que pede ação hoje."
   ],
   "casos": [
     {

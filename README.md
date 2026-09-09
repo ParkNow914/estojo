@@ -127,9 +127,12 @@ Em PR neste repositório, numa pasta sua. Cada PR:
 3. roda as duas réguas sem reprovar;
 4. usa os tokens de `tokens/atual.json`, com **tema escuro**.
 
-⛔ **Não trabalhe em cima de [`referencia/`](referencia/).** Aquilo é o que existe
-hoje — está lá para você ver de onde partimos, e o [`LEIA.md`](referencia/LEIA.md)
-de lá diz o que precisa sobreviver e quais defeitos já conhecemos.
+⚠️ **Não há tela pronta neste repositório, e isso é escolha.** Uma reprodução do
+que já existe é uma resposta pronta, e responder a uma resposta dá conserto, não
+desenho — foi exatamente o que aconteceu nas duas primeiras propostas que
+recebemos. Se quiser ver como o produto resolve alguma destas superfícies hoje,
+**pergunte**: mandamos a captura, com o que naquela tela é decisão cara e precisa
+sobreviver. Cada arquivo de conteúdo já lista as regras da superfície dele.
 
 A integração no produto é nossa. O que você constrói aqui é o que vai portado,
 sem tradução no meio.

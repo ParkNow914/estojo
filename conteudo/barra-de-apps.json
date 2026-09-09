@@ -13,7 +13,9 @@
     "«Conversas» nunca some.",
     "De quem é a tela tem de ser perceptível: confundir a nossa com a de um serviço é o okmigo assinando o que não escreveu.",
     "Não existe ABA no contrato de tela declarada — o que for navegação tem de sair daqui, não de dentro da superfície.",
-    "No celular a barra precisa EXISTIR. Hoje, no navegador, abaixo de 720px ela e a lista de conversas somem sem substituto."
+    "No celular a barra precisa EXISTIR. Hoje, no navegador, abaixo de 720px ela e a lista de conversas somem sem substituto.",
+    "A legenda do item SELECIONADO precisa de tom próprio: o fundo do item ativo é outro, e um tom calibrado contra o fundo da coluna cai para 3,65:1 ali dentro.",
+    "Um serviço com mais de uma tela entra UMA vez, com o nome dele. Já apareceram soltos, e quem olhava via dois aplicativos onde há um."
   ],
   "casos": [
     {

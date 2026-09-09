@@ -9,3 +9,8 @@ package-lock.json
 # no GitHub um .html aparece como código-fonte, então versionar não ajuda nem
 # quem só navega.
 casca/
+
+# ⛔ Mesma razão da `casca/`: `alisson/**/saida/` é escrita por
+# `node alisson/pagina-do-negocio/gerar.mjs` a partir de `conteudo/` e
+# `tokens/`. A fonte é o gerador; a saída se refaz num comando.
+alisson/**/saida/

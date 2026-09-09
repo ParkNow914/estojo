@@ -102,23 +102,20 @@ temperatura oposta. As páginas usam `#09090b` (azulado); o aplicativo usa
 os neutros, e é por isso que atravessar da página inicial para dentro do app
 parece trocar de produto. Nenhum framework conserta isso.
 
-## As duas réguas
+## Sobre acessibilidade
 
-    npm i
-    npm run verificar -- caminho/das/suas/telas/*.html
-    npm run alvo      -- caminho/das/suas/telas/*.html
+Contraste e alvo de toque são critério de aceitação, não capítulo final. Há
+**dois** pisos de contraste — 4,5:1 para texto e para ícone que informa, 3,0:1
+para objeto gráfico e borda de controle — e alvo de toque mínimo de 44×44. A mesma
+cor pode estar certa num papel e errada no outro.
 
-| | mede | pisos |
-|---|---|---|
-| `verificar/contraste.mjs` | contraste, **no pixel renderizado** | 4,5 texto e ícone · 3,0 objeto gráfico |
-| `verificar/alvo.mjs` | **tamanho do alvo de toque** | 24×24 (SC 2.5.8, AA) · 44×44 (a régua daqui) |
+⚠️ **Nós medimos, no pixel renderizado, quando você entrega** — a ferramenta é
+nossa e roda do nosso lado. Ela não fica aqui de propósito: régua à vista faz
+otimizar para a régua, e foi o que aconteceu nas duas primeiras propostas que
+recebemos. Se algo reprovar, você recebe o número e o elemento.
 
-⭐ **Passar nelas é piso, não é o trabalho.** Elas não sabem dizer se a
-arquitetura ficou boa — só reprovam o que é indefensável. Uma entrega que só faz
-os números passarem não é um redesenho.
-
-⚠️ Papéis se declaram no markup: `data-papel="grafico"` (3,0),
-`data-papel="icone"` (4,5), `data-papel="ornamento"` (isento). O padrão é texto.
+⭐ **E passar nela nunca foi o trabalho.** Ela não sabe dizer se a arquitetura
+ficou boa — só reprova o que é indefensável.
 
 ## Como entregar
 
@@ -139,12 +136,7 @@ sem tradução no meio.
 
 ## Dependência
 
-Os verificadores usam [Playwright](https://playwright.dev) com **Firefox**.
+**Nenhuma.** `npm run casca` e `npm run tokens` são node puro, sem `npm i`.
 
-    npm i && npx playwright install firefox
-
-⚠️ **Firefox, e não Chromium** — o Chromium empacotado não decodifica AAC, e o
-produto tem mensagem de voz em AAC/M4A.
-
-⚠️ O extrator de tokens usa **python3** e exige o produto ao lado. É gesto nosso,
-nunca de quem desenha: você consome o JSON.
+⚠️ O extrator de tokens exige o produto ao lado e é gesto nosso, nunca de quem
+desenha: você consome o JSON.

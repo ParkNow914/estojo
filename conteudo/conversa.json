@@ -3,21 +3,23 @@
   "o_que_faz": "É a tela mais usada do produto e a menos desenhada. A pessoa fala com o amigo de IA dela — que lembra do que ela contou semanas atrás — e também com outras pessoas e com negócios, na mesma lista.",
   "quem_abre": "Quem já entrou. É a tela onde se passa a maior parte do tempo.",
   "o_que_varia": [
-    "O TIPO de cada mensagem: texto, foto, mensagem de voz (com transcrição), documento anexado, resposta a uma mensagem anterior.",
-    "De quem é a fala: minha, do amigo, ou de outra PESSOA (que atravessa por um relay e não alimenta memória de ninguém).",
-    "O TAMANHO: uma pergunta de três palavras e uma resposta de quatro parágrafos vivem lado a lado.",
-    "Marcos de data no meio do fluxo, e estados: enviando, falhou, o amigo está pensando."
+    "O TIPO de cada mensagem: texto, foto (com ou sem legenda), mensagem de voz com transcrição, documento anexado, e resposta citando uma mensagem anterior.",
+    "De quem é a fala: minha, do amigo, ou de outra PESSOA — e a de outra pessoa atravessa um relay, não alimenta a memória de ninguém, e pode ser bloqueada.",
+    "O TAMANHO: uma pergunta de três palavras e uma resposta de quatro parágrafos vivem lado a lado, na mesma coluna.",
+    "O ESTADO de uma mensagem: enviando, falhou, e o amigo pensando antes de responder.",
+    "Marcos de data no meio do fluxo, e o número de mensagens: de zero a centenas."
   ],
   "regras_que_precisam_sobreviver": [
     "A transcrição de um áudio É a mensagem — não é legenda opcional escondida atrás de um toque.",
-    "Documento não é mensagem: ele vira memória. O que aparece é o arquivo e o que foi lido dele, marcado como citação de terceiro.",
-    "A fala de outra pessoa nunca se confunde com a do amigo.",
-    "Cada mensagem tem ações (responder, copiar, denunciar) sem que elas fiquem em cima do texto."
+    "Documento não é mensagem: ele vira memória. Na conversa aparece o arquivo; o texto que virou memória se lê no painel de Documentos, e um PDF escaneado fica marcado como «sem texto» em vez de fingir que foi lido.",
+    "A fala de outra pessoa nunca se confunde com a do amigo. Ela é copiada por um relay, é o único ponto do sistema que escreve na conta de outra pessoa, e não entra em perfil nem em busca.",
+    "Cada mensagem tem ações — Copiar, Responder e Apagar — e elas não podem ficar em cima do texto. Já ficaram: o botão nascia sobre a primeira letra de cada linha no celular.",
+    "O amigo não se apresenta numa tela vazia: a apresentação entra na resposta à PRIMEIRA mensagem que a conta manda na vida. Aquele turno é mais longo que os outros, uma vez só."
   ],
   "casos": [
     {
       "nome": "dia-comum",
-      "por_que": "o caso confortável",
+      "por_que": "o caso confortável, com os cinco tipos de mensagem que existem",
       "mensagens": [
         {
           "tipo": "marco",
@@ -44,6 +46,31 @@
         },
         {
           "de": "eu",
+          "tipo": "foto",
+          "legenda": "a corrente tá bem gasta, olha",
+          "hora": "21:27"
+        },
+        {
+          "de": "amigo",
+          "tipo": "texto",
+          "texto": "Está mesmo. Trocar corrente e cassete sai por uns R$ 150 em oficina — vale, porque corrente gasta come o cassete novo em duas semanas.",
+          "hora": "21:28"
+        },
+        {
+          "de": "eu",
+          "tipo": "texto",
+          "responde_a": "Trocar corrente e cassete sai por uns R$ 150",
+          "texto": "tem como você me lembrar disso sábado?",
+          "hora": "21:29"
+        },
+        {
+          "de": "amigo",
+          "tipo": "texto",
+          "texto": "Marquei. Sábado eu te lembro da corrente.",
+          "hora": "21:29"
+        },
+        {
+          "de": "eu",
           "tipo": "documento",
           "arquivo": "tabela-do-fornecedor.csv",
           "formato": "CSV",
@@ -58,8 +85,81 @@
       ]
     },
     {
+      "nome": "conta-nova-vazia",
+      "por_que": "⛔ A PRIMEIRA COISA que alguém vê no produto: nada. E é aqui que o app põe as dicas de gesto, que não podem cobrir o que explicam.",
+      "mensagens": [],
+      "dicas_do_app": [
+        "a bolinha — o amigo dentro de qualquer tela, para preencher e analisar",
+        "segurar o microfone — gravar voz sem soltar",
+        "o + — começar conversa com um negócio ou uma pessoa",
+        "o clipe — mandar foto ou documento"
+      ],
+      "nota": "⚠️ Sem carrossel de slides, de propósito: todo mundo pula, envelhece a cada recurso novo, e o diferencial do produto não se explica em slide — se demonstra conversando."
+    },
+    {
+      "nome": "a-primeira-fala",
+      "por_que": "⛔ O SEGUNDO caso que ninguém desenha: na primeira mensagem que a conta manda NA VIDA, a resposta do amigo carrega a apresentação dele. É mais longa que qualquer outra, e acontece uma vez só.",
+      "mensagens": [
+        {
+          "de": "eu",
+          "tipo": "texto",
+          "texto": "oi",
+          "hora": "09:12"
+        },
+        {
+          "de": "amigo",
+          "tipo": "texto",
+          "texto": "Oi! Eu sou o seu amigo aqui dentro. A diferença entre mim e outros assistentes é que eu lembro: o que você me contar hoje eu ainda vou saber em três semanas, e você pode ler e corrigir tudo o que eu sei sobre você, quando quiser.\n\nNão preciso que você me conte nada de uma vez. Fale de qualquer coisa — o que você faz, o que está te ocupando essa semana — e eu vou juntando.",
+          "hora": "09:12"
+        }
+      ]
+    },
+    {
+      "nome": "com-outra-pessoa",
+      "por_que": "⛔ O MODO que a bolha de duas cores não cobre: a conversa entre duas PESSOAS, depois de os dois aceitarem. Não é o amigo, e não pode parecer que é.",
+      "nota": "A fala dela é copiada para a sua conta por um relay — o único ponto do sistema que escreve na conta de outra pessoa. Ela não entra no seu perfil nem na sua busca. Até os dois aceitarem, o nome era trocado. E dá para bloquear daqui.",
+      "mensagens": [
+        {
+          "tipo": "marco",
+          "texto": "vocês dois aceitaram — agora falam direto"
+        },
+        {
+          "de": "pessoa",
+          "nome": "Carla",
+          "tipo": "texto",
+          "texto": "oi! vi que você tem uma bike de 21 marchas pra vender",
+          "hora": "08:02"
+        },
+        {
+          "de": "eu",
+          "tipo": "texto",
+          "texto": "tenho sim, mas a corrente precisa de troca",
+          "hora": "08:14"
+        },
+        {
+          "de": "pessoa",
+          "nome": "Carla",
+          "tipo": "voz",
+          "duracao": "0:11",
+          "transcrito": "sem problema, eu troco. dá pra ver hoje à tarde?",
+          "hora": "08:15"
+        }
+      ]
+    },
+    {
+      "nome": "estados",
+      "por_que": "⛔ Quatro aparências que hoje não têm forma nenhuma",
+      "estados": [
+        "enviando — a mensagem já está na tela e ainda não chegou",
+        "falhou — e precisa dizer o que fazer, não só que falhou",
+        "o amigo pensando — pode levar segundos, e ele responde escrevendo aos poucos",
+        "sem conexão — a conversa inteira, sem poder enviar"
+      ]
+    },
+    {
       "nome": "extremos",
       "por_que": "⛔ tudo que quebra layout de bolha, junto",
+      "nota": "E acima disto, o volume: uma conversa de meses tem centenas de mensagens numa coluna só, e reabrir precisa cair onde a pessoa parou.",
       "mensagens": [
         {
           "de": "eu",
@@ -70,13 +170,6 @@
           "de": "amigo",
           "tipo": "texto",
           "texto": "Você me pediu para retomar isto hoje, então vou por partes.\n\nPrimeiro: o orçamento da oficina venceu ontem. Você falou em 28 de maio que ligaria e não voltou ao assunto — o valor era R$ 1.240 e eles disseram que segurariam por dez dias.\n\nSegundo: a nota do fornecedor de maio ainda não foi para o contador. Isso apareceu em duas conversas suas e nas duas você adiou.\n\nTerceiro, e este é o que eu não sei responder sozinho: você quer que eu passe a te lembrar de coisas com prazo automaticamente, ou prefere que eu só responda quando você perguntar? Eu venho fazendo o segundo."
-        },
-        {
-          "de": "pessoa",
-          "nome": "Carla",
-          "tipo": "texto",
-          "texto": "oi! ainda tem a bike?",
-          "hora": "08:02"
         },
         {
           "de": "eu",
@@ -93,23 +186,17 @@
           "hora": "08:44"
         },
         {
-          "de": "eu",
-          "tipo": "foto",
-          "legenda": null,
-          "hora": "08:45"
-        },
-        {
           "de": "amigo",
           "tipo": "texto",
           "texto": "Não deu para ler o PDF: ele veio escaneado, sem texto.",
           "hora": "08:45"
+        },
+        {
+          "de": "eu",
+          "tipo": "foto",
+          "hora": "08:46"
         }
       ]
-    },
-    {
-      "nome": "primeira-vez",
-      "por_que": "a conversa vazia — a primeira tela de quem acabou de criar conta",
-      "mensagens": []
     }
   ]
 }

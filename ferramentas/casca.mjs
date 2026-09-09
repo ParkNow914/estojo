@@ -60,18 +60,30 @@ const COMO = {
     c.itens.map((i) => `<li><a href="#">${e(i.titulo)}</a> — ${e(i.hint)}` +
       (i.agente ? ` <small>[vem do serviço ${e(i.agente)}]</small>` : ` <small>[tela nossa${i.tipo === "condicional" ? ", condicional" : ""}]</small>`) +
       `</li>`).join("") + `</ul>`,
-  "conversa": (c) => c.mensagens.length
-    ? c.mensagens.map((m) => {
-        if (m.tipo === "marco") return `<p><time>${e(m.texto)}</time></p>`;
-        const quem = m.de === "eu" ? "eu" : m.de === "amigo" ? "o amigo" : `${e(m.nome)} (outra pessoa)`;
-        let corpo = "";
-        if (m.tipo === "texto") corpo = m.texto.split("\n\n").map((p) => `<p>${e(p)}</p>`).join("");
-        else if (m.tipo === "voz") corpo = `<p>[mensagem de voz, ${e(m.duracao)}]</p><blockquote><p>${e(m.transcrito)}</p></blockquote>`;
-        else if (m.tipo === "documento") corpo = `<p>[documento ${e(m.formato)}] ${e(m.arquivo)}</p>`;
-        else if (m.tipo === "foto") corpo = `<p>[foto${m.legenda ? ": " + e(m.legenda) : ", sem legenda"}]</p>`;
-        return `<article><h4>${quem}${m.hora ? ` <time>${e(m.hora)}</time>` : ""}</h4>${corpo}</article>`;
-      }).join("")
-    : `<p><em>(nenhuma mensagem — é a primeira tela de quem acabou de criar a conta)</em></p>`,
+  "conversa": (c) => {
+    let s = c.nota ? `<p><b>${e(c.nota)}</b></p>` : "";
+    if (c.estados) return s + lista(c.estados);
+    if (c.dicas_do_app)
+      s += `<p><em>(nenhuma mensagem)</em></p><p>No aplicativo, é aqui que aparecem as dicas de gesto, ` +
+           `uma por superfície, no primeiro contato:</p>${lista(c.dicas_do_app)}`;
+    if (!c.mensagens?.length) return s;
+    // ⚠️ `<article>` por mensagem e o autor num cabeçalho: sem isso o documento
+    // pelado é um monte de parágrafo solto e não dá para saber quem falou —
+    // que é justamente a primeira pergunta desta tela.
+    return s + c.mensagens.map((m) => {
+      if (m.tipo === "marco") return `<p><time>${e(m.texto)}</time></p>`;
+      const quem = m.de === "eu" ? "eu" : m.de === "amigo" ? "o amigo" : `${e(m.nome)} (outra pessoa)`;
+      let corpo = m.responde_a ? `<blockquote><p><small>em resposta a: ${e(m.responde_a)}…</small></p></blockquote>` : "";
+      if (m.tipo === "texto") corpo += m.texto.split("\n\n").map((x) => `<p>${e(x)}</p>`).join("");
+      else if (m.tipo === "voz") corpo += `<p>[mensagem de voz, ${e(m.duracao)}]</p><blockquote><p>${e(m.transcrito)}</p></blockquote>`;
+      else if (m.tipo === "documento") corpo += `<p>[documento ${e(m.formato)}] ${e(m.arquivo)}</p>`;
+      else if (m.tipo === "foto") corpo += `<p>[foto${m.legenda ? ": " + e(m.legenda) : ", sem legenda"}]</p>`;
+      // ⛔ As ações (Copiar/Responder/Apagar) NÃO se repetem por mensagem: elas
+      // valem para todas, estão nas regras da superfície, e repetir 22 vezes num
+      // documento pelado é ruído — o oposto do que esta casca existe para fazer.
+      return `<article><h4>${quem}${m.hora ? ` <time>${e(m.hora)}</time>` : ""}</h4>${corpo}</article>`;
+    }).join("");
+  },
   "tarefas": (c) => {
     if (c.estados) return lista(c.estados);
     if (!c.itens.length) return `<p><em>(nenhuma tarefa)</em></p>`;
